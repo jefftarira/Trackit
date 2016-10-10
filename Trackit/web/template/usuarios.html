@@ -1,0 +1,79 @@
+<ol class="breadcrumb animated fadeIn fast">
+	<li><a href=""><i class="fa fa-users"></i> Usuarios</a></li>
+</ol>
+
+<div class="row">
+	<div class="col-xs-12">
+
+		<div class="alert" ng-show="usuarios.cargandoLista">
+			<strong>Cargando</strong> espere por favor.....
+		</div>
+
+		<div class="box">
+
+			<div class="box-header">
+
+				<div class="box-tittle">
+					<ul class="pagination pagination-sm no-margin pull-left">
+						<li><a href="">Agregar</a></li>
+					</ul>
+				</div>
+
+				<div class="box-tools">
+					<ul class="pagination pagination-sm no-margin pull-right">
+						<li><a ng-click="moverA(1)">«</a></li>
+						<li ng-repeat="pagina in usuarios.paginas" ng-class="{'active' : usuarios.pag_actual===pagina.num } ">
+							<a ng-click="moverA(pagina.num)">
+								{{pagina.num}}
+							</a>
+						</li>
+						<li><a ng-click="moverA(usuarios.total_paginas)">»</a></li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="box-body table-responsive no-padding">
+
+				<table class="table table-hover table-bordered">
+					<thead>
+						<tr>
+							<th>User</th>
+							<th>Nombres</th>
+							<th>Apellidos</th>
+							<th>Tipo</th>
+							<th>Fecha Registro</th>
+							<th>Estado</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="usuario in usuarios.usuarios">
+							<td><a href="" ng-click="mostrarModal(usuario)"> {{ usuario.cedula }}</a></td>
+							<td> {{ usuario.nombres }}</td>
+							<td> {{ usuario.apellidos }}</td>
+							<td> {{ usuario.tipo }}</td>
+							<td class="text-muted"> {{ usuario.registro | date:"MMM d, yy ' - '" }} {{usuario.registro | date: "h:mm a"}}</td>
+							<td> <span class="label " ng-class="{'bg-green' : usuario.estado ==='ACTIVO' , 'bg-red' : usuario.estado === 'INACTIVO' }">{{usuario.estado}}</span></td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="box-footer clearfix">
+					<ul class="pagination pagination-sm no-margin pull-right">
+						<li><a ng-click="moverA(1)">«</a></li>
+
+						<li ng-repeat="pagina in usuarios.paginas" ng-class="{'active' : usuarios.pag_actual===pagina.num } ">
+							<a ng-click="moverA(pagina.num)">
+								{{pagina.num}}
+							</a>
+						</li>
+
+						<li><a ng-click="moverA(usuarios.total_paginas)">»</a></li>
+					</ul>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+
+<div ng-include="'template/modal_usuario.html'"></div>
