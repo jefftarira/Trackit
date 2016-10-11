@@ -37,6 +37,9 @@ app.controller('alumnosCtrl', ['$scope',"Alumnos", function($scope,Alumnos){
 
 	/*Mostrar modal usuario en modo edicion y crear*/
 
+  $scope.historial = function(){
+  	$("#modal_historial").modal({backdrop: 'static', keyboard : false });
+  };
 
 	$scope.editar = function(alumno){
 		$scope.alumnoEd = {};

@@ -86,6 +86,7 @@
 				<table class="table table-hover table-condensed">
 					<thead>
 						<tr>
+							<th></th>
 							<th>ID</th>
 							<th>Alumno</th>
 							<th>Direccion</th>
@@ -96,46 +97,56 @@
 					</thead>
 					<tbody>
 						<tr ng-repeat="alumno in alumnos.alumnos">
-							<td>{{ alumno.id }}</td>
 							<td>
-								<a href="" class="no-margin" ng-click="editar(alumno)"> {{ alumno.nombres }}
-									<p>{{ alumno.apellidos }}</p>
+								<div class="btn-group">
+									<button type="button" class="btn btn-box-tool dropdown-toggle" data-toggle="dropdown">
+										<i class="fa fa-tasks"></i></button>
+										<ul class="dropdown-menu" role="menu">
+											<li><a href="" ng-click="historial()" >Historial</a></li>
+										</ul>
+									</div>
+								</td>
+								<td>{{ alumno.id }}</td>
+								<td>
+									<a href="" class="no-margin" ng-click="editar(alumno)"> {{ alumno.nombres }}
+										<p>{{ alumno.apellidos }}</p>
+									</a>
+								</td>
+								<td> {{ alumno.direccion }}</td>
+								<td>
+									<p class="no-margin">{{alumno.u_nombre}} {{alumno.u_apellido}}</p>
+									<small class="text-muted">{{ alumno.cedula }}</small>
+								</td>
+								<td>
+									<p class="no-margin">{{ alumno.registro | date:"MMM d, yyyy" }}</p>
+									<small class="text-muted"><i class="fa fa-clock-o"></i> {{alumno.registro | date: "h:mm a"}}</small>
+								</td>
+								<td>
+									<span class="label " ng-class="{'bg-green' : alumno.estado ==='ACTIVO' , 'bg-red' : alumno.estado === 'INACTIVO' }">{{alumno.estado}}
+									</span>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="box-footer clearfix">
+						<ul class="pagination pagination-sm no-margin pull-right">
+							<li><a ng-click="moverA(1)">«</a></li>
+
+							<li ng-repeat="pagina in alumnos.paginas" ng-class="{'active' : alumnos.pag_actual===pagina.num } ">
+								<a ng-click="moverA(pagina.num)">
+									{{pagina.num}}
 								</a>
-							</td>
-							<td> {{ alumno.direccion }}</td>
-							<td>
-							<p class="no-margin">{{alumno.u_nombre}} {{alumno.u_apellido}}</p>
-								<small class="text-muted">{{ alumno.cedula }}</small>
-							</td>
-							<td>
-								<p class="no-margin">{{ alumno.registro | date:"MMM d, yyyy" }}</p>
-								<small class="text-muted"> {{alumno.registro | date: "h:mm a"}}</small>
-							</td>
-							<td>
-								<span class="label " ng-class="{'bg-green' : alumno.estado ==='ACTIVO' , 'bg-red' : alumno.estado === 'INACTIVO' }">{{alumno.estado}}
-								</span>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-				<div class="box-footer clearfix">
-					<ul class="pagination pagination-sm no-margin pull-right">
-						<li><a ng-click="moverA(1)">«</a></li>
+							</li>
 
-						<li ng-repeat="pagina in alumnos.paginas" ng-class="{'active' : alumnos.pag_actual===pagina.num } ">
-							<a ng-click="moverA(pagina.num)">
-								{{pagina.num}}
-							</a>
-						</li>
-
-						<li><a ng-click="moverA(alumnos.total_paginas)">»</a></li>
-					</ul>
+							<li><a ng-click="moverA(alumnos.total_paginas)">»</a></li>
+						</ul>
+					</div>
 				</div>
-			</div>
 
+			</div>
 		</div>
 	</div>
-</div>
 
 
-<div ng-include="'template/modal_alumno.html'"></div>
+	<div ng-include="'template/modal_alumno.html'"></div>
+	<div ng-include="'template/modal_historial.html'"></div>
