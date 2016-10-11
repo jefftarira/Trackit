@@ -87,8 +87,7 @@
 					<thead>
 						<tr>
 							<th>ID</th>
-							<th>Nombres</th>
-							<th>Apellidos</th>
+							<th>Alumno</th>
 							<th>Direccion</th>
 							<th>Cuenta</th>
 							<th>Fecha Ingreso</th>
@@ -98,11 +97,20 @@
 					<tbody>
 						<tr ng-repeat="alumno in alumnos.alumnos">
 							<td>{{ alumno.id }}</td>
-							<td><a href="" ng-click="editar(alumno)"> {{ alumno.nombres }}</a></td>
-							<td> {{ alumno.apellidos }}</td>
+							<td>
+								<a href="" class="no-margin" ng-click="editar(alumno)"> {{ alumno.nombres }}
+									<p>{{ alumno.apellidos }}</p>
+								</a>
+							</td>
 							<td> {{ alumno.direccion }}</td>
-							<td> {{ alumno.cedula }} <small>Datos de cuenta</small></td>
-							<td class="text-muted"> {{ alumno.registro | date:"MMM d, yyyy ' - '" }} {{alumno.registro | date: "h:mm a"}}</td>
+							<td>
+							<p class="no-margin">{{alumno.u_nombre}} {{alumno.u_apellido}}</p>
+								<small class="text-muted">{{ alumno.cedula }}</small>
+							</td>
+							<td>
+								<p class="no-margin">{{ alumno.registro | date:"MMM d, yyyy" }}</p>
+								<small class="text-muted"> {{alumno.registro | date: "h:mm a"}}</small>
+							</td>
 							<td>
 								<span class="label " ng-class="{'bg-green' : alumno.estado ==='ACTIVO' , 'bg-red' : alumno.estado === 'INACTIVO' }">{{alumno.estado}}
 								</span>

@@ -12,7 +12,11 @@ public class AlumnosDAO {
 
   private Conexion con;
   private String sTotal = "SELECT count(*) as cuantos FROM alumnos";
-  private String sAlumnos = "select a.id,a.nombres,a.apellidos,a.direccion,u.cedula,a.fecha_ingreso,a.estado from alumnos a,usuarios u where   a.id_usuario=u.id order by a.fecha_ingreso desc limit ?,? ";
+  private String sAlumnos = "select a.id,a.nombres,a.apellidos,a.direccion,u.cedula,u.nombres u_nombre,u.apellidos u_apellido,a.fecha_ingreso,a.estado \n"
+          + "  from alumnos a,usuarios u "
+          + " where a.id_usuario=u.id "
+          + " order by a.fecha_ingreso desc "
+          + " limit ?,?";
   private String sAlumno = "select a.id,u.id id_usuario,u.cedula u_cedula,u.nombres u_nombre,u.apellidos u_apellido,a.fecha_ingreso,a.institucion,a.nombres,a.apellidos,a.direccion,a.conductor,a.expreso,a.encargado,a.estado from alumnos a,usuarios u where a.id_usuario=u.id and a.id = ?";
 
   private String uAlumno = " UPDATE alumnos SET id_usuario = ?, institucion = ?, apellidos = ?, nombres = ?, direccion = ?, conductor = ?, expreso = ?, encargado = ?, estado = ? WHERE id = ? LIMIT 1 ";
@@ -103,6 +107,8 @@ public class AlumnosDAO {
               rs.getString("apellidos"),
               rs.getString("direccion"),
               rs.getString("cedula"),
+              rs.getString("u_nombre"),
+              rs.getString("u_apellido"),
               rs.getTimestamp("fecha_ingreso"),
               rs.getString("estado"));
       aAlumnos.add(a);

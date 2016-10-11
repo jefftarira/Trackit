@@ -90,6 +90,8 @@ public class AlumnosBO {
       jsonD.put("apellidos", a.getApellidos());
       jsonD.put("direccion", a.getDireccion());
       jsonD.put("cedula", a.getU_cedula());
+      jsonD.put("u_nombre", a.getU_nombre());
+      jsonD.put("u_apellido", a.getU_apellido());
       jsonD.put("registro", a.getFecha_ingreso().toInstant());
 
       if (a.getEstado().trim().equals("A")) {

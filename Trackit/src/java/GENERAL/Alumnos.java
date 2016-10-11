@@ -21,12 +21,14 @@ public class Alumnos {
   private String u_nombre;
   private String u_apellido;
 
-  public Alumnos(int id, String nombres, String apellidos, String direccion, String u_cedula, Timestamp fecha_ingreso, String estado) {
+  public Alumnos(int id, String nombres, String apellidos, String direccion, String u_cedula, String u_nombre, String u_apellido, Timestamp fecha_ingreso, String estado) {
     this.setId(id);
     this.setNombres(nombres);
     this.setApellidos(apellidos);
     this.setDireccion(direccion);
     this.setU_cedula(u_cedula);
+    this.setU_nombre(u_nombre);
+    this.setU_apellido(u_apellido);
     this.setFecha_ingreso(fecha_ingreso);
     this.setEstado(estado);
   }
