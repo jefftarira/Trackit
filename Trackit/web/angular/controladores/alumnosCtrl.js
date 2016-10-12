@@ -11,17 +11,14 @@ app.controller('alumnosCtrl', ['$scope',"Alumnos", function($scope,Alumnos){
 	$scope.alumnoSel = {};
 	$scope.alumnoEd = {};
 	$scope.usuarios = [];
+	$scope.historial = [];
 	$scope.buscar= "";
 
-	$scope.imprimir = function(estado){
-			console.log(estado);
-	};
-
 	$scope.moverA = function(pag) {
-		toastr.info('Cargando...', '',{"positionClass": "toast-bottom-center"});
+		/*toastr.info('Cargando...', '',{"positionClass": "toast-bottom-center"});*/
 		Alumnos.cargarPagina(pag).then( function(){
 			$scope.alumnos = Alumnos;
-			toastr.remove();
+			/*toastr.remove();*/
 		});
 	};
 
@@ -37,16 +34,21 @@ app.controller('alumnosCtrl', ['$scope',"Alumnos", function($scope,Alumnos){
 
 	/*Mostrar modal usuario en modo edicion y crear*/
 
-  $scope.historial = function(){
-  	$("#modal_historial").modal({backdrop: 'static', keyboard : false });
-  };
+	$scope.verHistorial = function(alumno){
+		angular.copy( alumno, $scope.alumnoSel);
+		$scope.historial= [];
+		Alumnos.cargarHistorial(alumno.id).then( function(){
+			$scope.historial = Alumnos.historial;
+			$("#modal_historial").modal();
+		});
+	};
 
 	$scope.editar = function(alumno){
 		$scope.alumnoEd = {};
 		toastr.info('Cargando...', '',{"positionClass": "toast-bottom-center"});
 
 		Alumnos.cargarAlumno(alumno).then( function(){
-			$("#modal_alumno").modal();
+			$("#modal_alumno").modal({backdrop: 'static'});
 			$(".select2").select2();
 			$scope.alumnoEd = Alumnos.alumno;
 			$scope.usuarios = Alumnos.usuarios;

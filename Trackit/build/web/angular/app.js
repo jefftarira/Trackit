@@ -6,17 +6,17 @@ var app= angular.module('alumnosApp', [
 	'alumnosApp.usuarios',
 	'alumnosApp.alumnosCtrl',
 	'alumnosApp.alumnos'
-]);
+	]);
 
 angular.module('jcs-autoValidate')
-	.run([
+.run([
 	'defaultErrorMessageResolver',
 	function (defaultErrorMessageResolver) {
 		// To change the root resource file path
 		defaultErrorMessageResolver.setI18nFileRootPath('angular/lib');
 		defaultErrorMessageResolver.setCulture('es-co');
 	}
-]);
+	]);
 
 app.controller('mainCtrl', ['$scope','Configuracion',function($scope,Configuracion){
 	$scope.config   = {};
@@ -59,7 +59,7 @@ app.controller('mainCtrl', ['$scope','Configuracion',function($scope,Configuraci
 
 app.config(['$routeProvider',function($routeProvider){
 	$routeProvider
-		.when('/',{
+	.when('/',{
 		templateUrl: 'template/dashboard.html',
 		controller : 'dashboardCtrl'
 
@@ -72,7 +72,7 @@ app.config(['$routeProvider',function($routeProvider){
 		controller : 'usuariosCtrl'
 
 	})
-		.otherwise({
+	.otherwise({
 		redirectTo: '/'
 	})
 }]);
@@ -91,13 +91,27 @@ app.filter('quitarletra',function(){
 	}
 })
 
-	.filter('mensajecorto',function(){
+app.filter('mensajecorto',function(){
 	return function(mensaje){
 		if(mensaje){
 			if (mensaje.length > 20)
 				return mensaje.substr(0,37)+"...";
 			else
 				return mensaje;
+		}
+	}
+})
+
+app.filter("capitalize", function(){
+	return function(text) {
+		if(text != null){
+			var palabras = text.split(" ");
+			var nuevoTexto = "";
+
+			for(var i=0; i<palabras.length ; i++){
+				nuevoTexto += palabras[i].substring(0,1).toUpperCase() +  palabras[i].substring(1).toLowerCase() +" ";
+			}
+			return nuevoTexto;
 		}
 	}
 })

@@ -1,39 +1,24 @@
 <div class="modal fade" id="modal_historial">
-	<div class="modal-dialog">
+	<div class="modal-dialog modal-sm">
 		<div class="modal-content">
 
-			<!-- <div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">×</span>
-				</button>
-				<h4 class="modal-title"> Historial Alumno </h4>
-			</div> -->
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">Ubicaciones de  <span class="text-bold text-muted">{{ alumnoSel.nombres | capitalize}}  {{ alumnoSel.apellidos | capitalize }}</span></h4>
+			</div>
 
 			<div class="modal-body">
-				<div class="row">
-					<div class="col-md-12">
-						<!-- Widget: user widget style 1 -->
-						<div class="box box-widget widget-user-2">
-							<!-- Add the bg color to the header using any of the bg-* classes -->
-							<div class="widget-user-header bg-yellow">
-								<div class="widget-user-image">
-									<img class="img-circle" src="../dist/img/user7-128x128.jpg" alt="User Avatar">
-								</div>
-								<!-- /.widget-user-image -->
-								<h3 class="widget-user-username">Nadia Carmichael</h3>
-								<h5 class="widget-user-desc">Lead Developer</h5>
+				<div class="tab-pane">
+					<ul class="control-sidebar-menu">
+
+						<li class="margin" ng-repeat="his in historial">
+							<i class="menu-icon fa" ng-class="his.estilocolor+' '+his.estiloicono"></i>
+							<div class="menu-info">
+								<strong><span><i class="fa fa-map-marker"></i></span> {{his.descripcion | capitalize}}</strong>
+								<p>{{ his.fecha | date:"MMM d, yyyy" }} <spam class="text-muted">{{his.fecha | date: "h:mm a"}}</spam></p>
 							</div>
-							<div class="box-footer no-padding">
-								<ul class="nav nav-stacked">
-									<li><a href="#">Projects <span class="pull-right badge bg-blue">31</span></a></li>
-									<li><a href="#">Tasks <span class="pull-right badge bg-aqua">5</span></a></li>
-									<li><a href="#">Completed Projects <span class="pull-right badge bg-green">12</span></a></li>
-									<li><a href="#">Followers <span class="pull-right badge bg-red">842</span></a></li>
-								</ul>
-							</div>
-						</div>
-						<!-- /.widget-user -->
-					</div>
+						</li>
+					</ul>
 				</div>
 			</div>
 			<div class="modal-footer">

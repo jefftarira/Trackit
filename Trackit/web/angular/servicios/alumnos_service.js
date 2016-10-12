@@ -10,6 +10,7 @@ app.factory('Alumnos', ['$http', '$q', function($http, $q){
 		'alumnos'          : [],
 		'alumno'		       : [],
 		'usuarios'				 : [],
+		'historial'				 : [],
 		'pag_actual'       : 1,
 		'pag_siguiente'    : 1,
 		'pag_anterior'     : 1,
@@ -17,14 +18,11 @@ app.factory('Alumnos', ['$http', '$q', function($http, $q){
 		'paginas'          : [],
 
 		cargarPagina : function(pag){
-
 			self.cargandoLista = true;
-
 			param = {
 				'pagina' : pag,
 				'max_reg' : 20
 			}
-
 			var d = $q.defer();
 			$http.post('service_jsp/listaAlumnos.jsp',param)
 			.success(function( data ){
@@ -37,13 +35,23 @@ app.factory('Alumnos', ['$http', '$q', function($http, $q){
 				self.pag_anterior   = data.pag_anterior;
 				self.total_paginas  = data.total_paginas;
 				self.paginas        = data.paginas;
-
 				d.resolve();
-
 			});
-
 			return d.promise;
+		},
 
+		cargarHistorial : function(idAlumno){
+			param = {
+				'id' : idAlumno
+			}
+			var d = $q.defer();
+			$http.post('service_jsp/listaHistorial.jsp',param)
+			.success(function( data ){
+				self.err            = data.err;
+				self.historial      = data.historial;
+				d.resolve();
+			});
+			return d.promise;
 		},
 
 		cargarAlumno : function(alumno){
