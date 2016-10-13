@@ -15,10 +15,9 @@ app.controller('alumnosCtrl', ['$scope',"Alumnos", function($scope,Alumnos){
 	$scope.buscar= "";
 
 	$scope.moverA = function(pag) {
-		/*toastr.info('Cargando...', '',{"positionClass": "toast-bottom-center"});*/
 		Alumnos.cargarPagina(pag).then( function(){
 			$scope.alumnos = Alumnos;
-			/*toastr.remove();*/
+			console.log($scope.alumnos);
 		});
 	};
 

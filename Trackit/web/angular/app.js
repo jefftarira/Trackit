@@ -94,8 +94,8 @@ app.filter('quitarletra',function(){
 app.filter('mensajecorto',function(){
 	return function(mensaje){
 		if(mensaje){
-			if (mensaje.length > 20)
-				return mensaje.substr(0,37)+"...";
+			if (mensaje.length > 24)
+				return mensaje.substr(0,25)+"...";
 			else
 				return mensaje;
 		}

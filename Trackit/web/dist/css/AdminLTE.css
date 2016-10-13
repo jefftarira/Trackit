@@ -5107,6 +5107,10 @@ table.text-center th {
   margin-right: 5px;
 }
 
+.margin-top{
+  margin-top: 5px;
+}
+
 .onoffswitch {
     position: relative; width: 101px;
     -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
@@ -5152,4 +5156,14 @@ table.text-center th {
 .onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
     right: 0px;
     background-color: #00A65A;
+}
+.btn-point {
+  border-radius: 50% !important;
+  background: transparent !important;
+}
+.box-hover{
+  cursor: pointer;
+}
+.box-hover:hover{
+  background: #f9f9f9;
 }

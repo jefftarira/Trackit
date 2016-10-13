@@ -88,13 +88,13 @@ if (u == null) {
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
 			<!-- Content Header (Page header) -->
-			<section class="content-header">
+			<!-- <section class="content-header">
 
 				<h1>
 					<span ng-bind="titulo"></span>
 					<small ng-bind="subtitulo"></small>
 				</h1>
-			</section>
+			</section> -->
 
 			<!-- Main content -->
 			<section class="content" ng-view>
