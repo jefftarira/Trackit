@@ -17,9 +17,10 @@
 
   int pagina = Integer.parseInt(jObj.getString("pagina"));
   int maxreg = Integer.parseInt(jObj.getString("max_reg"));
+  String vBuscar = jObj.getString("buscar");
   String json="";
   AlumnosBO alum = new AlumnosBO();
-  json = alum.listaAlumnos(pagina,maxreg);
+  json = alum.listaAlumnos(pagina,maxreg,vBuscar);
   out.println(json);
 
 %>

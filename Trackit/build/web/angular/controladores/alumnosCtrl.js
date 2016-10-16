@@ -15,14 +15,13 @@ app.controller('alumnosCtrl', ['$scope',"Alumnos", function($scope,Alumnos){
 	$scope.buscar= "";
 
 	$scope.moverA = function(pag) {
-		Alumnos.cargarPagina(pag).then( function(){
+		Alumnos.cargarPagina(pag,$scope.buscar).then( function(){
 			$scope.alumnos = Alumnos;
-			console.log($scope.alumnos);
 		});
 	};
 
 	$scope.buscarAlumno = function(){
-		console.log($scope.buscar);
+		$scope.moverA(1);
 	};
 
 	$scope.selAlumno = function(alumno){
@@ -57,7 +56,7 @@ app.controller('alumnosCtrl', ['$scope',"Alumnos", function($scope,Alumnos){
 	};
 
 	$scope.guardar = function(alumno,frmAlumno){
-		Alumnos.guardar(alumno).then( function(){
+		Alumnos.guardar(alumno,$scope.buscar).then( function(){
 			$("#modal_alumno").modal('hide');
 			$scope.alumnoEd = {};
 			frmAlumno.autoValidateFormOptions.resetForm();

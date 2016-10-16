@@ -18,7 +18,7 @@ public class AlumnosBO {
     db = new AlumnosDAO();
   }
 
-  public String listaAlumnos(int pagina, int maxreg) throws SQLException, ClassNotFoundException, JSONException {
+  public String listaAlumnos(int pagina, int maxreg,String vBuscar) throws SQLException, ClassNotFoundException, JSONException {
     String json = "";
 
     ArrayList<Alumnos> aAlumnos = null;
@@ -31,7 +31,7 @@ public class AlumnosBO {
     int totalregistros = 0;
     int totalpaginas = 0;
 
-    totalregistros = db.totalAlumnos();
+    totalregistros = db.totalAlumnos(vBuscar);
     totalpaginas = Math.round(totalregistros / 20);
     System.out.println("total Paginas " + totalpaginas);
 
@@ -62,7 +62,7 @@ public class AlumnosBO {
       pag_anterior = pagina;
     }
 
-    aAlumnos = db.getAlumnos(desde, reg_pagina);
+    aAlumnos = db.getAlumnos(desde, reg_pagina,vBuscar);
 
     JSONObject obj = new JSONObject();
     obj.put("err", false);

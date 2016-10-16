@@ -49,7 +49,7 @@ if (u == null) {
 <body class="hold-transition skin-blue fixed sidebar-mini">
 	<div class="wrapper">
 		<header class="main-header">
-			<a href="#/" class="logo">
+			<a href="#/" class="logo hidden-xs">
 				<span class="logo-mini"><b><i class="fa  fa-bullseye"></i></b></span>
 				<span class="logo-lg">
 					<i class="fa fa-bullseye"></i>

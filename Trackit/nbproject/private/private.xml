@@ -3,9 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/D:/Desarrollo/GitHub/Trackit/Trackit/src/java/DAO/AlumnosDAO.java</file>
             <file>file:/D:/Desarrollo/GitHub/Trackit/Trackit/web/service_jsp/listaHistorial.jsp</file>
             <file>file:/D:/Desarrollo/GitHub/Trackit/Trackit/src/java/DAO/HistorialDAO.java</file>
             <file>file:/D:/Desarrollo/GitHub/Trackit/Trackit/src/java/BO/HistorialBO.java</file>
+            <file>file:/D:/Desarrollo/GitHub/Trackit/Trackit/web/service_jsp/listaAlumnos.jsp</file>
+            <file>file:/D:/Desarrollo/GitHub/Trackit/Trackit/src/java/BO/AlumnosBO.java</file>
             <file>file:/D:/Desarrollo/GitHub/Trackit/Trackit/src/java/GENERAL/Historial.java</file>
         </group>
     </open-files>

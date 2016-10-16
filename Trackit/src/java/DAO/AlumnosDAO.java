@@ -6,13 +6,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.StringTokenizer;
 import org.apache.commons.codec.digest.DigestUtils;
 
 public class AlumnosDAO {
 
   private Conexion con;
   private String sTotal = "SELECT count(*) as cuantos FROM alumnos";
-  private String sAlumnos = "select a.id,a.nombres,a.apellidos,a.direccion,u.cedula,u.nombres u_nombre,u.apellidos u_apellido,a.fecha_ingreso,a.estado \n"
+  private String sAlumnos = "select a.id,a.nombres,a.apellidos,a.direccion,u.cedula,u.nombres u_nombre,u.apellidos u_apellido,a.fecha_ingreso,a.estado "
           + "  from alumnos a,usuarios u "
           + " where a.id_usuario=u.id "
           + " order by a.fecha_ingreso desc "
@@ -77,12 +78,33 @@ public class AlumnosDAO {
     return rAfectados;
   }
 
-  public int totalAlumnos() throws SQLException, ClassNotFoundException {
+  public int totalAlumnos(String vBuscar) throws SQLException, ClassNotFoundException {
+    vBuscar = vBuscar.toUpperCase().trim();
+    StringTokenizer tokens = new StringTokenizer(vBuscar);
+    String select = "";
+    select = " SELECT count(*) as cuantos "
+            + "  FROM alumnos a "
+            + " WHERE  ( a.buscar like concat('%','" + vBuscar + "','%') ";
+
+    if (tokens.countTokens() > 0) {
+      select += "   OR ( a.buscar like concat('%','" + tokens.nextToken() + "','%') ";
+      while (tokens.hasMoreTokens()) {
+        select += " and a.buscar like concat('%','" + tokens.nextToken() + "','%') ";
+      }
+      select += " ) ";
+    }
+
+    select += " ) ";
+
+    while (tokens.hasMoreTokens()) {
+      System.out.println(tokens.nextToken());
+    }
+    
     con.conectar();
     int total = 0;
     PreparedStatement ps;
     ResultSet rs;
-    ps = con.prepareStatement(sTotal);
+    ps = con.prepareStatement(select);
     rs = ps.executeQuery();
     rs.next();
     total = rs.getInt("cuantos");
@@ -91,11 +113,36 @@ public class AlumnosDAO {
     return total;
   }
 
-  public ArrayList getAlumnos(int desde, int reg_pagina) throws SQLException, ClassNotFoundException {
+  public ArrayList getAlumnos(int desde, int reg_pagina, String vBuscar) throws SQLException, ClassNotFoundException {
+    vBuscar = vBuscar.toUpperCase().trim();
+    StringTokenizer tokens = new StringTokenizer(vBuscar);
+    String select = "";
+
+    select = " select a.id,a.nombres,a.apellidos,a.direccion,u.cedula, "
+            + "	    u.nombres u_nombre,u.apellidos u_apellido,a.fecha_ingreso,a.estado "
+            + "  from alumnos a,usuarios u "
+            + " where a.id_usuario=u.id ";
+
+    select += " AND ( a.buscar like concat('%','" + vBuscar + "','%') ";
+
+    if (tokens.countTokens() > 0) {
+      select += "   OR ( a.buscar like concat('%','" + tokens.nextToken() + "','%') ";
+      while (tokens.hasMoreTokens()) {
+        select += " and a.buscar like concat('%','" + tokens.nextToken() + "','%') ";
+      }
+      select += " ) ";
+    }
+
+    select += " ) order by a.fecha_ingreso desc limit ?,?  ";
+
+    while (tokens.hasMoreTokens()) {
+      System.out.println(tokens.nextToken());
+    }
+
     ArrayList<Alumnos> aAlumnos = new ArrayList<Alumnos>();
     PreparedStatement ps;
     con.conectar();
-    ps = con.prepareStatement(sAlumnos);
+    ps = con.prepareStatement(select);
     ps.setInt(1, desde);
     ps.setInt(2, reg_pagina);
     ResultSet rs;

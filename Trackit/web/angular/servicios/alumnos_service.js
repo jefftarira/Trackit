@@ -17,11 +17,13 @@ app.factory('Alumnos', ['$http', '$q', function($http, $q){
 		'total_paginas'    : 1,
 		'paginas'          : [],
 
-		cargarPagina : function(pag){
+		cargarPagina : function(pag,vBuscar){
+			console.log(vBuscar);
 			self.cargandoLista = true;
 			param = {
 				'pagina' : pag,
-				'max_reg' : 20
+				'max_reg' : 20,
+				'buscar' : vBuscar
 			}
 			var d = $q.defer();
 			$http.post('service_jsp/listaAlumnos.jsp',param)
@@ -70,12 +72,12 @@ app.factory('Alumnos', ['$http', '$q', function($http, $q){
 			return d.promise;
 		},
 
-		guardar : function(alumno){
+		guardar : function(alumno,vBuscar){
 
 			var d = $q.defer();
 			$http.post('service_jsp/guardarAlumnos.jsp',alumno)
 			.success(function( data ){
-				self.cargarPagina(self.pag_actual);
+				self.cargarPagina(self.pag_actual,vBuscar);
 				d.resolve();
 			});
 			return d.promise;
