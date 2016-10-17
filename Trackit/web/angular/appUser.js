@@ -20,15 +20,8 @@ angular.module('jcs-autoValidate')
 
 app.controller('mainCtrl', ['$scope','Configuracion',function($scope,Configuracion){
 	$scope.config   = {};
-	// $scope.mensajes = Mensajes.mensajes;
-	// $scope.notificaciones = Notificaciones.notificaciones;
 	$scope.titulo    = "";
 	$scope.subtitulo ="";
-
-	$scope.usuario = {
-		nombre : "Jefferson Tarira",
-		fecha_registro : "2 Agosto 2016"
-	};
 
 	$scope.cerrarSesion = function(){
 		Configuracion.cerrarSesion();
@@ -60,12 +53,8 @@ app.controller('mainCtrl', ['$scope','Configuracion',function($scope,Configuraci
 app.config(['$routeProvider',function($routeProvider){
 	$routeProvider
 	.when('/',{
-		templateUrl: 'template/alumnos.html',
-		controller : 'alumnosCtrl'
-
-	}).when('/usuarios',{
-		templateUrl: 'template/usuarios.html',
-		controller : 'usuariosCtrl'
+		templateUrl: 'template/dashboard.html',
+		controller : 'dashboardCtrl'
 
 	})
 	.otherwise({

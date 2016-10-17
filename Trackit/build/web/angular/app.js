@@ -60,10 +60,6 @@ app.controller('mainCtrl', ['$scope','Configuracion',function($scope,Configuraci
 app.config(['$routeProvider',function($routeProvider){
 	$routeProvider
 	.when('/',{
-		templateUrl: 'template/dashboard.html',
-		controller : 'dashboardCtrl'
-
-	}).when('/alumnos',{
 		templateUrl: 'template/alumnos.html',
 		controller : 'alumnosCtrl'
 
