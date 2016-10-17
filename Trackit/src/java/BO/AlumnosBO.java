@@ -106,6 +106,44 @@ public class AlumnosBO {
 
     return obj.toString().trim();
   }
+  
+  public String listaAlumnosST(int id) throws SQLException, ClassNotFoundException, JSONException {
+    String json = "";
+
+    ArrayList<Alumnos> aAlumnos = null;
+    Alumnos a = null;   
+
+    aAlumnos = db.getAlumnosST(id);
+
+    JSONObject obj = new JSONObject();
+    obj.put("err", false);
+
+    String status = "";
+    JSONArray aC = new JSONArray();
+    for (int i = 0; i < aAlumnos.size(); i++) {
+      JSONObject jsonD = new JSONObject();
+      a = aAlumnos.get(i);
+      jsonD.put("id", a.getId());
+      jsonD.put("nombres", a.getNombres());
+      jsonD.put("apellidos", a.getApellidos());
+      jsonD.put("direccion", a.getDireccion());
+      jsonD.put("cedula", a.getU_cedula());
+      jsonD.put("u_nombre", a.getU_nombre());
+      jsonD.put("u_apellido", a.getU_apellido());
+      jsonD.put("registro", a.getFecha_ingreso().toInstant());
+
+      if (a.getEstado().trim().equals("A")) {
+        status = "ACTIVO";
+      } else {
+        status = "INACTIVO";
+      }
+      jsonD.put("estado", status);
+      aC.add(jsonD);
+    }
+    obj.put("alumnos", aC);
+
+    return obj.toString().trim();
+  }
 
   public String cargaAlumno(int id) throws ClassNotFoundException, SQLException, JSONException {
 

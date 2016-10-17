@@ -42,6 +42,19 @@ app.factory('Alumnos', ['$http', '$q', function($http, $q){
 			return d.promise;
 		},
 
+		cargarLista : function(){
+			self.cargandoLista = true;
+			var d = $q.defer();
+			$http.post('service_jsp/listaAlumnosST.jsp')
+			.success(function( data ){
+				self.cargandoLista  = false;
+				self.err            = data.err;
+				self.alumnos        = data.alumnos;
+				d.resolve();
+			});
+			return d.promise;
+		},
+
 		cargarHistorial : function(idAlumno){
 			param = {
 				'id' : idAlumno

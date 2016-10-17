@@ -89,18 +89,12 @@
       </header>
       <!-- Left side column. contains the logo and sidebar -->
 
-      <%
-        if (u.getTipo().trim().equals("ADMINISTRADOR")) {
-      %>
       <aside class="main-sidebar" >
         <section class="sidebar">
-          <ul class="sidebar-menu" ng-include=" 'template/menu.html'">
+          <ul class="sidebar-menu" ng-include=" 'template/menu.jsp'">
           </ul>
         </section>
       </aside>
-      <%
-        }
-      %>
 
 
 
