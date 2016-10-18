@@ -15,7 +15,7 @@
   } else {
   %>
 <li ng-class="mAlumnos"><a href="#/alumnos"><i class="fa fa-odnoklassniki"></i> <span>Alumnos</span></a></li>
-<li ng-class="mUsuarios"><a href="#/usuarios"><i class="fa fa-users"></i> <span>Usuarios</span></a></li>
+<li ng-class="mUsuarios"><a href="#/usuarios"><i class="fa fa-users"></i> <span>Cuentas</span></a></li>
   <%
     }
   %>

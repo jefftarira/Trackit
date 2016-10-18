@@ -19,7 +19,7 @@ public class UsuariosDAO {
   private String insert = "INSERT INTO usuarios (idUsuarios,username,email,clave,nombre,fecha_registro,estado) "
           + " VALUES (null,?,?,?,?,now(),'A')";
   private String selectAutenticar = "select id,cedula,tipo,apellidos,nombres,fecha_registro,estado "
-          + "from usuarios where cedula=? and clave=password(?) and estado='A' ";
+          + "from usuarios where cedula=? and clave=md5(?) and estado='A' ";
 
   public UsuariosDAO() throws ClassNotFoundException, SQLException {
     con = new Conexion();

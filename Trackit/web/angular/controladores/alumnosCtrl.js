@@ -56,6 +56,7 @@ app.controller('alumnosCtrl', ['$scope',"Alumnos", function($scope,Alumnos){
 	};
 
 	$scope.guardar = function(alumno,frmAlumno){
+		console.log(alumno);
 		Alumnos.guardar(alumno,$scope.buscar).then( function(){
 			$("#modal_alumno").modal('hide');
 			$scope.alumnoEd = {};

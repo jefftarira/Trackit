@@ -170,7 +170,7 @@ public class AlumnosBO {
       jsonD.put("conductor", "");
       jsonD.put("expreso", "");
       jsonD.put("encargado", "");
-      jsonD.put("estado", "");
+      jsonD.put("estado", true);
       jsonD.put("id_usuario", "");
       obj.put("alumno", jsonD);
 
@@ -186,7 +186,7 @@ public class AlumnosBO {
       }
       obj.put("usuarios", aC);
 
-      System.out.println(obj);
+      
       return obj.toString();
       
     } else {
@@ -233,7 +233,7 @@ public class AlumnosBO {
       }
       obj.put("usuarios", aC);
 
-      System.out.println(obj);
+     
       return obj.toString();
     }
   }

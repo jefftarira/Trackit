@@ -1,8 +1,8 @@
 <ol class="breadcrumb animated fadeIn fast">
-	<li><a href=""><i class="fa fa-users"></i> Usuarios</a></li>
+	<li><a href=""><i class="fa fa-users"></i> Cuentas</a></li>
 </ol>
 
-<div class="row">
+<div class="row margin">
 	<div class="col-xs-12">
 
 		<div class="alert" ng-show="usuarios.cargandoLista">
@@ -32,12 +32,11 @@
 				</div>
 			</div>
 
-			<div class="box-body table-responsive no-padding">
-
-				<table class="table table-hover table-bordered">
+			<div class="box-body">
+				<table class="table table-hover table-striped">
 					<thead>
 						<tr>
-							<th>User</th>
+							<th>CI / Usuario</th>
 							<th>Nombres</th>
 							<th>Apellidos</th>
 							<th>Tipo</th>
@@ -46,11 +45,11 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="usuario in usuarios.usuarios">
-							<td><a href="" ng-click="mostrarModal(usuario)"> {{ usuario.cedula }}</a></td>
-							<td> {{ usuario.nombres }}</td>
-							<td> {{ usuario.apellidos }}</td>
-							<td> {{ usuario.tipo }}</td>
+						<tr ng-repeat="usuario in usuarios.usuarios" ng-click="mostrarModal(usuario)" class="box-hover">
+							<td> {{ usuario.cedula }}</td>
+							<td> {{ usuario.nombres | capitalize }}</td>
+							<td> {{ usuario.apellidos | capitalize }}</td>
+							<td> {{ usuario.tipo | capitalize}}</td>
 							<td class="text-muted"> {{ usuario.registro | date:"MMM d, yy ' - '" }} {{usuario.registro | date: "h:mm a"}}</td>
 							<td> <span class="label " ng-class="{'bg-green' : usuario.estado ==='ACTIVO' , 'bg-red' : usuario.estado === 'INACTIVO' }">{{usuario.estado}}</span></td>
 						</tr>

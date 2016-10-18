@@ -21,11 +21,11 @@ public class AlumnosDAO {
           + " order by a.fecha_ingreso desc ";
   private String sAlumno = "select a.id,u.id id_usuario,u.cedula u_cedula,u.nombres u_nombre,u.apellidos u_apellido,a.fecha_ingreso,a.institucion,a.nombres,a.apellidos,a.direccion,a.conductor,a.expreso,a.encargado,a.estado from alumnos a,usuarios u where a.id_usuario=u.id and a.id = ?";
 
-  private String uAlumno = " UPDATE alumnos SET id_usuario = ?, institucion = ?, apellidos = ?, nombres = ?, direccion = ?, conductor = ?, expreso = ?, encargado = ?, estado = ? WHERE id = ? LIMIT 1 ";
+  private String uAlumno = " UPDATE alumnos SET id_usuario = ?, institucion = ?, apellidos = ?, nombres = ?, direccion = ?, conductor = ?, expreso = ?, encargado = ?, estado = ?, buscar= ? WHERE id = ? LIMIT 1 ";
 
-  private String iAlumno = "INSERT INTO alumnos \n"
-          + "(id_usuario,fecha_ingreso,institucion,apellidos,nombres,direccion,conductor,expreso,encargado,estado)\n"
-          + "VALUES(?,sysdate(),?,?,?,?,?,?,?,?)";
+  private String iAlumno = "INSERT INTO alumnos "
+          + " (id_usuario,fecha_ingreso,institucion,apellidos,nombres,direccion,conductor,expreso,encargado,estado,buscar) "
+          + " VALUES(?,sysdate(),?,?,?,?,?,?,?,?,?)";
 
   public AlumnosDAO() throws ClassNotFoundException, SQLException {
     con = new Conexion();
@@ -47,6 +47,7 @@ public class AlumnosDAO {
     ps.setInt(7, a.getExpreso());
     ps.setString(8, a.getEncargado());
     ps.setString(9, a.getEstado());
+    ps.setString(10,a.getNombres()+" "+a.getApellidos()+" "+a.getDireccion());
     rAfectados = ps.executeUpdate();
     con.Commit();
     con.cerrar();
@@ -69,7 +70,8 @@ public class AlumnosDAO {
     ps.setInt(7, a.getExpreso());
     ps.setString(8, a.getEncargado());
     ps.setString(9, a.getEstado());
-    ps.setInt(10, a.getId());
+    ps.setString(10,a.getNombres()+" "+a.getApellidos()+" "+a.getDireccion());
+    ps.setInt(11, a.getId());
 
     rAfectados = ps.executeUpdate();
 

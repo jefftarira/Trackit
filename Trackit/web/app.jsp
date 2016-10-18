@@ -110,7 +110,7 @@
         </section> -->
 
         <!-- Main content -->
-        <section class="content" ng-view>
+        <section class="content no-padding" ng-view>
           <!-- Your Page Content Here -->
 
         </section>

@@ -1,0 +1,108 @@
+<div class="modal fade" id="modal_alumno">
+	<div class="modal-dialog">
+		<div class="modal-content">
+
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">×</span>
+				</button>
+				<h4 class="modal-title" ng-hide="alumnoEd.id==0">Alumno ID: {{alumnoEd.id}} </h4>
+			</div>
+
+			<form name="frmAlumno" ng-submit="guardar(alumnoEd,frmAlumno)" novalidate="novalidate">
+				<div class="modal-body">
+
+					<div class="alert alert-info" ng-show="alumnoEd.cargandoAlumno">
+						<strong>Cargando</strong> espere por favor.....
+					</div>
+					<div class="row">
+						<div class="col-md-8">
+							<div class="form-group">
+								<label>Fecha de ingreso</label>
+								<div class="text-muted"> {{ alumnoEd.fecha_ingreso | date:"MMM d, yyyy ' - '" }} {{alumnoEd.fecha_ingreso | date: "h:mm a"}}</div>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group">
+								<label>Estado</label>
+								<div class="onoffswitch">
+									<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" ng-checked="alumnoEd.estado" ng-model="alumnoEd.estado" disabled>
+									<label class="onoffswitch-label" for="myonoffswitch">
+										<span class="onoffswitch-inner"></span>
+										<span class="onoffswitch-switch"></span>
+									</label>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label>Nombres</label>
+								<input type="text" class="form-control input-sm" placeholder="Nombres"
+								ng-model="alumnoEd.nombres" required disabled>
+							</div>
+
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label>Apellidos</label>
+								<input type="text" class="form-control input-sm" placeholder="Apellidos"
+								ng-model="alumnoEd.apellidos" required disabled>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label>Direccion</label>
+						<input type="text" class="form-control input-sm" placeholder="Direccion"
+						ng-model="alumnoEd.direccion" required disabled>
+					</div>
+
+					<div class="form-group">
+						<label>Encargado</label>
+						<input type="text" class="form-control input-sm" placeholder="Encargado"
+						ng-model="alumnoEd.encargado" required disabled>
+					</div>
+
+					<div class="form-group">
+						<label>Institucion</label>
+						<input type="text" class="form-control input-sm" placeholder="Institucion"
+						ng-model="alumnoEd.institucion" required disabled>
+					</div>
+
+
+					<div class="row">
+						<div class="col-md-3">
+							<div class="form-group">
+								<label>Expreso</label>
+								<input type="number" class="form-control input-sm" placeholder="Expreso"
+								ng-model="alumnoEd.expreso" required disabled>
+							</div>
+
+						</div>
+						<div class="col-md-9">
+							<div class="form-group">
+								<label>Conductor</label>
+								<input type="text" class="form-control input-sm" placeholder="Conductor"
+								ng-model="alumnoEd.conductor" required disabled>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label>Cuenta </label>
+						<select class="form-control" style="width: 100%;" ng-model="alumnoEd.id_usuario" ng-options="usuario.id as usuario.id+' - '+usuario.cedula+' - '+usuario.nombres+' '+usuario.apellidos for usuario in usuarios" required disabled>
+						</select>
+					</div>
+				</div>
+
+				<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+</div>
