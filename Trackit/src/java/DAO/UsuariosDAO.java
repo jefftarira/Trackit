@@ -12,8 +12,11 @@ public class UsuariosDAO {
 
   private Conexion con;
   private String sTotal = "SELECT count(*) as cuantos FROM usuarios";
-  private String sUsuarios = "select id,tipo,cedula,apellidos,nombres,fecha_registro,estado " 
+  private String sUsuarios = "select id,tipo,cedula,apellidos,nombres,fecha_registro,estado "
           + " from usuarios order by fecha_registro desc limit ?,? ";
+  private String sUsuario = " select id,tipo,cedula,apellidos,nombres,fecha_registro,estado "
+          + "   from usuarios "
+          + "  where id=? ";
   private String sCuentas = "select id,tipo,cedula,apellidos,nombres,fecha_registro,estado from usuarios where estado='A'";
   private String selectbyUsername = "select username from usuarios where username=?";
   private String insert = "INSERT INTO usuarios (idUsuarios,username,email,clave,nombre,fecha_registro,estado) "
@@ -37,6 +40,28 @@ public class UsuariosDAO {
     rs.close();
     con.cerrar();
     return total;
+  }
+
+  public Usuarios getUsuario(int id) throws SQLException, ClassNotFoundException {
+    Usuarios u = null;
+    PreparedStatement ps;
+    con.conectar();
+    ps = con.prepareStatement(sUsuario);
+    ps.setInt(1, id);
+    ResultSet rs;
+    rs = ps.executeQuery();
+
+    rs.next();
+    u = new Usuarios(rs.getInt("id"),
+            rs.getString("tipo"),
+            rs.getString("cedula"),
+            "********",
+            rs.getString("apellidos"),
+            rs.getString("nombres"),
+            rs.getTimestamp("fecha_registro"),
+            rs.getString("estado"));
+
+    return u;
   }
 
   public ArrayList getUsuarios(int desde, int reg_pagina) throws SQLException, ClassNotFoundException {

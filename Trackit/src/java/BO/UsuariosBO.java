@@ -108,6 +108,58 @@ public class UsuariosBO {
     return obj.toString();
   }
 
+  public String cargaUsuario(int id) throws ClassNotFoundException, SQLException, JSONException {
+
+    Usuarios u = null;
+
+    if (id == 0) {
+      System.out.println("Nuevo Usuario");
+
+      JSONObject obj = new JSONObject();
+      obj.put("err", false);
+
+      JSONObject jsonD = new JSONObject();
+      jsonD.put("id", 0);
+      jsonD.put("tipo", "");
+      jsonD.put("nombres", "");
+      jsonD.put("apellidos", "");
+      jsonD.put("cedula", "");
+      jsonD.put("clave", "");
+      jsonD.put("claveRep", "");
+      jsonD.put("registro", "");
+      jsonD.put("estado", true);
+      obj.put("usuario", jsonD);
+      return obj.toString();
+
+    } else {
+      System.out.println("Edicion de usuario");
+      u = db.getUsuario(id);
+
+      JSONObject obj = new JSONObject();
+
+      obj.put("err", false);
+
+      JSONObject jsonD = new JSONObject();
+      boolean status = false;
+      if (u.getEstado().trim().equals("A")) {
+        status = true;
+      } else {
+        status = false;
+      }
+      jsonD.put("id", u.getId());
+      jsonD.put("tipo", u.getTipo());
+      jsonD.put("nombres", u.getNombres());
+      jsonD.put("apellidos", u.getApellidos());
+      jsonD.put("cedula", u.getCedula());
+      jsonD.put("clave",u.getClave());
+      jsonD.put("claveRep",u.getClave());
+      jsonD.put("registro", u.getFechaRegistro().toInstant());
+      jsonD.put("estado", status);
+      obj.put("usuario", jsonD);
+      return obj.toString();
+    }
+  }
+
 //    public void encriptar() throws SQLException {
 //      System.out.println("Ingreso a encryptar");
 //      db.encriptarClave();

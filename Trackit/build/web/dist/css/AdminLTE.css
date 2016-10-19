@@ -294,11 +294,11 @@ body {
 @media (max-width: 767px) {
   .fixed .content-wrapper,
   .fixed .right-side {
-    padding-top: 100px;
+    padding-top: 50px;
   }
 }
 .fixed.layout-boxed .wrapper {
-  max-width: 100%;
+  max-width: 50%;
 }
 body.hold-transition .content-wrapper,
 body.hold-transition .right-side,
@@ -4488,6 +4488,9 @@ table.text-center th {
 .margin-bottom-none {
   margin-bottom: 0;
 }
+.margin-b-5{
+  margin-bottom: 5px;
+}
 .margin-r-5 {
   margin-right: 5px;
 }
@@ -5177,4 +5180,8 @@ table.text-center th {
 }
 .box-hover:hover{
   background: #f9f9f9;
+}
+
+.padding-por {
+ padding: 1%;
 }

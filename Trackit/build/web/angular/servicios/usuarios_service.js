@@ -16,7 +16,6 @@ app.factory('Usuarios', ['$http', '$q', function($http, $q){
 		'paginas'          : [],
 
 		cargarPagina : function(pag){
-
 			self.cargandoLista = true;
 
 			param = {
@@ -36,24 +35,19 @@ app.factory('Usuarios', ['$http', '$q', function($http, $q){
 				self.pag_anterior   = data.pag_anterior;
 				self.total_paginas  = data.total_paginas;
 				self.paginas        = data.paginas;
-
 				return d.resolve();
-
 			});
-
 			return d.promise;
-
 		},
 
 		cargarUsuario : function(usuario){
-
 			self.cargandoCliente = true;
 
 			var d = $q.defer();
-			$http.post('service_jsp/cargaUsuario.jsp',usuario)
+			$http.post('service_jsp/cargarUsuario.jsp',usuario)
 			.success(function( data ){
 				self.cargandoUsuario    = false;
-				self.err         = data.err; s
+				self.err         = data.err;
 				self.usuario     = data.usuario;
 
 				return d.resolve();
@@ -68,11 +62,9 @@ app.factory('Usuarios', ['$http', '$q', function($http, $q){
 			$http.post('service_jsp/guardarUsuario.jsp',usuario)
 			.success(function( data ){
 				self.cargandoUsuario    = false;
-				self.err         				= data.err; s
+				self.err         				= data.err;
 				self.usuario     				= data.usuario;
-
 				return d.resolve();
-
 			});
 			return d.promise;
 		}

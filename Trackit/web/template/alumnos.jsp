@@ -17,7 +17,7 @@ u = (Usuarios) session.getAttribute("usuario");
       <div class="col-md-3 margin-bottom">
         <div class="">
           <div class="btn-group">
-            <button type="button" class="btn btn-default" ng-click="editar({})">Nuevo</button>
+            <button type="button" class="btn btn-default" ng-click="editar({})">Agregar alumno</button>
           </div>
           <div class="btn-group">
             <button type="button" class="btn btn-default" ng-click="moverA(alumnos.pag_actual)">

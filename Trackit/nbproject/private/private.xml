@@ -3,16 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Desarrollo/GitHub/Trackit/Trackit/web/template/menu.jsp</file>
             <file>file:/D:/Desarrollo/GitHub/Trackit/Trackit/src/java/DAO/AlumnosDAO.java</file>
             <file>file:/D:/Desarrollo/GitHub/Trackit/Trackit/web/service_jsp/listaHistorial.jsp</file>
             <file>file:/D:/Desarrollo/GitHub/Trackit/Trackit/src/java/DAO/HistorialDAO.java</file>
+            <file>file:/D:/Desarrollo/GitHub/Trackit/Trackit/web/service_jsp/cargarAlumno.jsp</file>
             <file>file:/D:/Desarrollo/GitHub/Trackit/Trackit/src/java/BO/HistorialBO.java</file>
             <file>file:/D:/Desarrollo/GitHub/Trackit/Trackit/web/service_jsp/listaAlumnosST.jsp</file>
             <file>file:/D:/Desarrollo/GitHub/Trackit/Trackit/src/java/BO/AlumnosBO.java</file>
-            <file>file:/D:/Desarrollo/GitHub/Trackit/Trackit/web/login.jsp</file>
             <file>file:/D:/Desarrollo/GitHub/Trackit/Trackit/src/java/GENERAL/Historial.java</file>
-            <file>file:/D:/Desarrollo/GitHub/Trackit/Trackit/web/app.jsp</file>
+            <file>file:/D:/Desarrollo/GitHub/Trackit/Trackit/web/service_jsp/guardarAlumnos.jsp</file>
         </group>
     </open-files>
 </project-private>
