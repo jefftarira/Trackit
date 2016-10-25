@@ -18,7 +18,7 @@ public class AlumnosBO {
     db = new AlumnosDAO();
   }
 
-  public String listaAlumnos(int pagina, int maxreg,String vBuscar) throws SQLException, ClassNotFoundException, JSONException {
+  public String listaAlumnos(int pagina, int maxreg, String vBuscar) throws SQLException, ClassNotFoundException, JSONException {
     String json = "";
 
     ArrayList<Alumnos> aAlumnos = null;
@@ -62,7 +62,7 @@ public class AlumnosBO {
       pag_anterior = pagina;
     }
 
-    aAlumnos = db.getAlumnos(desde, reg_pagina,vBuscar);
+    aAlumnos = db.getAlumnos(desde, reg_pagina, vBuscar);
 
     JSONObject obj = new JSONObject();
     obj.put("err", false);
@@ -106,12 +106,12 @@ public class AlumnosBO {
 
     return obj.toString().trim();
   }
-  
+
   public String listaAlumnosST(int id) throws SQLException, ClassNotFoundException, JSONException {
     String json = "";
 
     ArrayList<Alumnos> aAlumnos = null;
-    Alumnos a = null;   
+    Alumnos a = null;
 
     aAlumnos = db.getAlumnosST(id);
 
@@ -162,6 +162,7 @@ public class AlumnosBO {
 
       JSONObject jsonD = new JSONObject();
       jsonD.put("id", id);
+      jsonD.put("dispositivo", "");
       jsonD.put("fecha_ingreso", "");
       jsonD.put("institucion", "");
       jsonD.put("apellidos", "");
@@ -186,9 +187,8 @@ public class AlumnosBO {
       }
       obj.put("usuarios", aC);
 
-      
       return obj.toString();
-      
+
     } else {
       System.out.println("Edicion");
       a = db.getAlumno(id);
@@ -197,6 +197,7 @@ public class AlumnosBO {
 
       JSONObject jsonD = new JSONObject();
       jsonD.put("id", a.getId());
+      jsonD.put("dispositivo", a.getDispositivo());
       jsonD.put("fecha_ingreso", a.getFecha_ingreso().toInstant());
       jsonD.put("institucion", a.getInstitucion());
       jsonD.put("apellidos", a.getApellidos());
@@ -218,7 +219,9 @@ public class AlumnosBO {
       jsonD.put("u_cedula", a.getU_cedula().trim());
       jsonD.put("u_nombre", a.getU_nombre());
       jsonD.put("u_apellido", a.getU_apellido());
-
+      
+      System.out.println(jsonD);
+      
       obj.put("alumno", jsonD);
 
       JSONArray aC = new JSONArray();
@@ -232,15 +235,13 @@ public class AlumnosBO {
         aC.add(jsonU);
       }
       obj.put("usuarios", aC);
-
-     
       return obj.toString();
     }
   }
 
-  public String guardarAlumno(JSONObject jObj) throws ClassNotFoundException, SQLException, JSONException {    
+  public String guardarAlumno(JSONObject jObj) throws ClassNotFoundException, SQLException, JSONException {
     int n = 0;
-    
+
     String estado = "";
     if (jObj.getBoolean("estado")) {
       estado = "A";
@@ -250,6 +251,7 @@ public class AlumnosBO {
 
     Alumnos a = null;
     a = new Alumnos(Integer.parseInt(jObj.getString("id")),
+            jObj.getString("dispositivo").trim(),
             jObj.getString("institucion").toUpperCase().trim(),
             jObj.getString("apellidos").toUpperCase().trim(),
             jObj.getString("nombres").toUpperCase().trim(),
@@ -259,16 +261,23 @@ public class AlumnosBO {
             jObj.getString("encargado").toUpperCase().trim(),
             estado,
             Integer.parseInt(jObj.getString("id_usuario")));
-    
-    if(a.getId() != 0)
+
+    if (a.getId() != 0) {
       n = db.actualizarAlumno(a);
-    else
+    } else {
       n = db.ingresarAlumno(a);
-      
-      
+    }
+
     JSONObject obj = new JSONObject();
-    obj.put("err", false);
-    obj.put("mensaje", "Se guardo correctamente");
+
+    if (n < 0) {
+      obj.put("err", true);
+      obj.put("mensaje", "Error al guardar");
+    } else {
+      obj.put("err", false);
+      obj.put("mensaje", "Se guardo correctamente");
+    }
+
     return obj.toString();
   }
 

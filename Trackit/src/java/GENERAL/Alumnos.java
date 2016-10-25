@@ -6,6 +6,7 @@ import java.sql.Timestamp;
 public class Alumnos {
 
   private int id;
+  private String dispositivo;
   private Timestamp fecha_ingreso;
   private String institucion;
   private String apellidos;
@@ -22,6 +23,7 @@ public class Alumnos {
   private String u_apellido;
 
   public Alumnos(int id, String nombres, String apellidos, String direccion, String u_cedula, String u_nombre, String u_apellido, Timestamp fecha_ingreso, String estado) {
+    System.out.println("No hay dispositivo");
     this.setId(id);
     this.setNombres(nombres);
     this.setApellidos(apellidos);
@@ -33,8 +35,9 @@ public class Alumnos {
     this.setEstado(estado);
   }
 
-  public Alumnos(int id, Timestamp fecha_ingreso, String institucion, String apellidos, String nombres, String direccion, String conductor, int expreso, String encargado, String estado, int id_usuario, String u_cedula, String u_nombre, String u_apellido) {
+  public Alumnos(int id, String dispositivo, Timestamp fecha_ingreso, String institucion, String apellidos, String nombres, String direccion, String conductor, int expreso, String encargado, String estado, int id_usuario, String u_cedula, String u_nombre, String u_apellido) {
     this.setId(id);
+    this.setDispositivo(dispositivo);
     this.setFecha_ingreso(fecha_ingreso);
     this.setInstitucion(institucion);
     this.setApellidos(apellidos);
@@ -51,8 +54,9 @@ public class Alumnos {
     this.setU_apellido(u_apellido);
   }
 
-  public Alumnos(int id, String institucion, String apellidos, String nombres, String direccion, String conductor, int expreso, String encargado, String estado, int id_usuario) {
+  public Alumnos(int id,String dispositivo, String institucion, String apellidos, String nombres, String direccion, String conductor, int expreso, String encargado, String estado, int id_usuario) {
     this.setId(id);
+    this.setDispositivo(dispositivo);
     this.setInstitucion(institucion);
     this.setApellidos(apellidos);
     this.setNombres(nombres);
@@ -269,6 +273,20 @@ public class Alumnos {
    */
   public void setU_apellido(String u_apellido) {
     this.u_apellido = u_apellido;
+  }
+
+  /**
+   * @return the dispositivo
+   */
+  public String getDispositivo() {
+    return dispositivo;
+  }
+
+  /**
+   * @param dispositivo the dispositivo to set
+   */
+  public void setDispositivo(String dispositivo) {
+    this.dispositivo = dispositivo;
   }
 
 }

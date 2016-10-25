@@ -6,6 +6,7 @@ app.factory('Alumnos', ['$http', '$q', function($http, $q){
 		'cargandoLista'    : false,
 		'cargandoAlumno'   : false,
 		'err'              : false,
+		'mensaje'					 : '',
 		'conteo'           : 0,
 		'alumnos'          : [],
 		'alumno'		       : [],
@@ -90,7 +91,11 @@ app.factory('Alumnos', ['$http', '$q', function($http, $q){
 			var d = $q.defer();
 			$http.post('service_jsp/guardarAlumnos.jsp',alumno)
 			.success(function( data ){
-				self.cargarPagina(self.pag_actual,vBuscar);
+				self.err = data.err;
+				self.mensaje = data.mensaje;
+				if(!data.err){
+					self.cargarPagina(self.pag_actual,vBuscar);
+				}
 				d.resolve();
 			});
 			return d.promise;

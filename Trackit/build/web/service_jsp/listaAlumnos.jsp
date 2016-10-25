@@ -3,8 +3,6 @@
 <%@page import="java.io.BufferedReader"%>
 <%@ page language="java" contentType="application/json" %>
 <%
-  
-  
   StringBuilder sb = new StringBuilder();
   BufferedReader br = request.getReader();
 
@@ -12,7 +10,7 @@
   while ((str = br.readLine()) != null) {
     sb.append(str);
   }
-  
+
   JSONObject jObj = new JSONObject(sb.toString());
 
   int pagina = Integer.parseInt(jObj.getString("pagina"));
@@ -22,5 +20,4 @@
   AlumnosBO alum = new AlumnosBO();
   json = alum.listaAlumnos(pagina,maxreg,vBuscar);
   out.println(json);
-
 %>

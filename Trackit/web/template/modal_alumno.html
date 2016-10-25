@@ -16,7 +16,7 @@
 						<strong>Cargando</strong> espere por favor.....
 					</div> -->
 					<div class="row">
-						<div class="col-md-8">
+						<div class="col-md-4">
 							<div class="form-group">
 								<label>Fecha de ingreso</label>
 								<div class="text-muted"> {{ alumnoEd.fecha_ingreso | date:"MMM d, yyyy ' - '" }} {{alumnoEd.fecha_ingreso | date: "h:mm a"}}</div>
@@ -32,6 +32,13 @@
 										<span class="onoffswitch-switch"></span>
 									</label>
 								</div>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group">
+								<label>Dispositivo</label>
+								<input type="text" class="form-control input-sm" placeholder="Dispositivo"
+								ng-model="alumnoEd.dispositivo">
 							</div>
 						</div>
 					</div>

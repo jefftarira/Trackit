@@ -44,4 +44,9 @@ public class Conexion {
             con.commit();
     }
     
+    public void Rollback() throws SQLException{
+        if(con!=null)
+            con.rollback();
+    }
+    
 }

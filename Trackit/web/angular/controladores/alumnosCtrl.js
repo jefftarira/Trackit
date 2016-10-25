@@ -7,6 +7,8 @@ app.controller('alumnosCtrl', ['$scope',"Alumnos", function($scope,Alumnos){
 
 	$scope.activar('mAlumnos','','Alumnos','Lista');
 
+
+
 	$scope.alumnos = Alumnos;
 	$scope.alumnoSel = {};
 	$scope.alumnoEd = {};
@@ -50,35 +52,41 @@ app.controller('alumnosCtrl', ['$scope',"Alumnos", function($scope,Alumnos){
 			$(".select2").select2();
 			$scope.alumnoEd = Alumnos.alumno;
 			$scope.usuarios = Alumnos.usuarios;
-
+			console.log($scope.alumnoEd);
 			toastr.remove();
 		});
 	};
 
 	$scope.guardar = function(alumno,frmAlumno){
-		console.log(alumno);
 		Alumnos.guardar(alumno,$scope.buscar).then( function(){
-			$("#modal_alumno").modal('hide');
-			$scope.alumnoEd = {};
-			frmAlumno.autoValidateFormOptions.resetForm();
-			toastr.options = {
-				"closeButton": true,
-				"debug": false,
-				"newestOnTop": true,
-				"progressBar": true,
-				"positionClass": "toast-bottom-left",
-				"preventDuplicates": false,
-				"onclick": null,
-				"showDuration": "300",
-				"hideDuration": "1000",
-				"timeOut": "2000",
-				"extendedTimeOut": "1000",
-				"showEasing": "swing",
-				"hideEasing": "linear",
-				"showMethod": "fadeIn",
-				"hideMethod": "fadeOut"
-			};
-			toastr.success('Se guardo correctamente', '');
+
+			if(!Alumnos.err){
+
+				$("#modal_alumno").modal('hide');
+				$scope.alumnoEd = {};
+				frmAlumno.autoValidateFormOptions.resetForm();
+				toastr.options = {
+					"closeButton": true,
+					"debug": false,
+					"newestOnTop": true,
+					"progressBar": true,
+					"positionClass": "toast-bottom-left",
+					"preventDuplicates": false,
+					"onclick": null,
+					"showDuration": "300",
+					"hideDuration": "1000",
+					"timeOut": "2000",
+					"extendedTimeOut": "1000",
+					"showEasing": "swing",
+					"hideEasing": "linear",
+					"showMethod": "fadeIn",
+					"hideMethod": "fadeOut"
+				};
+				toastr.success(Alumnos.mensaje, '');
+			}
+			else{
+				toastr.error(Alumnos.mensaje, '');
+			}
 		});
 	}
 

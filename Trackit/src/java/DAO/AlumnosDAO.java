@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.apache.commons.codec.digest.DigestUtils;
 
 public class AlumnosDAO {
@@ -19,13 +21,13 @@ public class AlumnosDAO {
           + " where u.id=? "
           + " and a.id_usuario=u.id "
           + " order by a.fecha_ingreso desc ";
-  private String sAlumno = "select a.id,u.id id_usuario,u.cedula u_cedula,u.nombres u_nombre,u.apellidos u_apellido,a.fecha_ingreso,a.institucion,a.nombres,a.apellidos,a.direccion,a.conductor,a.expreso,a.encargado,a.estado from alumnos a,usuarios u where a.id_usuario=u.id and a.id = ?";
+  private String sAlumno = "select a.id,a.dispositivo,u.id id_usuario,u.cedula u_cedula,u.nombres u_nombre,u.apellidos u_apellido,a.fecha_ingreso,a.institucion,a.nombres,a.apellidos,a.direccion,a.conductor,a.expreso,a.encargado,a.estado from alumnos a,usuarios u where a.id_usuario=u.id and a.id = ?";
 
-  private String uAlumno = " UPDATE alumnos SET id_usuario = ?, institucion = ?, apellidos = ?, nombres = ?, direccion = ?, conductor = ?, expreso = ?, encargado = ?, estado = ?, buscar= ? WHERE id = ? LIMIT 1 ";
+  private String uAlumno = " UPDATE alumnos SET dispositivo=?, id_usuario = ?, institucion = ?, apellidos = ?, nombres = ?, direccion = ?, conductor = ?, expreso = ?, encargado = ?, estado = ?, buscar= ? WHERE id = ? LIMIT 1 ";
 
   private String iAlumno = "INSERT INTO alumnos "
-          + " (id_usuario,fecha_ingreso,institucion,apellidos,nombres,direccion,conductor,expreso,encargado,estado,buscar) "
-          + " VALUES(?,sysdate(),?,?,?,?,?,?,?,?,?)";
+          + " (dispositivo,id_usuario,fecha_ingreso,institucion,apellidos,nombres,direccion,conductor,expreso,encargado,estado,buscar) "
+          + " VALUES(?,?,sysdate(),?,?,?,?,?,?,?,?,?)";
 
   public AlumnosDAO() throws ClassNotFoundException, SQLException {
     con = new Conexion();
@@ -38,16 +40,17 @@ public class AlumnosDAO {
     con.autoCommit(false);
     PreparedStatement ps;
     ps = con.prepareStatement(iAlumno);
-    ps.setInt(1, a.getId_usuario());
-    ps.setString(2, a.getInstitucion());
-    ps.setString(3, a.getApellidos());
-    ps.setString(4, a.getNombres());
-    ps.setString(5, a.getDireccion());
-    ps.setString(6, a.getConductor());
-    ps.setInt(7, a.getExpreso());
-    ps.setString(8, a.getEncargado());
-    ps.setString(9, a.getEstado());
-    ps.setString(10,a.getNombres()+" "+a.getApellidos()+" "+a.getDireccion());
+    ps.setString(1, a.getDispositivo());
+    ps.setInt(2, a.getId_usuario());
+    ps.setString(3, a.getInstitucion());
+    ps.setString(4, a.getApellidos());
+    ps.setString(5, a.getNombres());
+    ps.setString(6, a.getDireccion());
+    ps.setString(7, a.getConductor());
+    ps.setInt(8, a.getExpreso());
+    ps.setString(9, a.getEncargado());
+    ps.setString(10, a.getEstado());
+    ps.setString(11,a.getNombres()+" "+a.getApellidos()+" "+a.getDireccion());
     rAfectados = ps.executeUpdate();
     con.Commit();
     con.cerrar();
@@ -56,29 +59,35 @@ public class AlumnosDAO {
 
   public int actualizarAlumno(Alumnos a) throws ClassNotFoundException, SQLException {
     int rAfectados = 0;
-
-    con.conectar();
-    con.autoCommit(false);
-    PreparedStatement ps;
-    ps = con.prepareStatement(uAlumno);
-    ps.setInt(1, a.getId_usuario());
-    ps.setString(2, a.getInstitucion());
-    ps.setString(3, a.getApellidos());
-    ps.setString(4, a.getNombres());
-    ps.setString(5, a.getDireccion());
-    ps.setString(6, a.getConductor());
-    ps.setInt(7, a.getExpreso());
-    ps.setString(8, a.getEncargado());
-    ps.setString(9, a.getEstado());
-    ps.setString(10,a.getNombres()+" "+a.getApellidos()+" "+a.getDireccion());
-    ps.setInt(11, a.getId());
-
-    rAfectados = ps.executeUpdate();
-
-    con.Commit();
-    con.cerrar();
-
-    return rAfectados;
+    try {     
+      con.conectar();
+      con.autoCommit(false);
+      PreparedStatement ps;
+      ps = con.prepareStatement(uAlumno);
+      ps.setString(1, a.getDispositivo());
+      ps.setInt(2, a.getId_usuario());
+      ps.setString(3, a.getInstitucion());
+      ps.setString(4, a.getApellidos());
+      ps.setString(5, a.getNombres());
+      ps.setString(6, a.getDireccion());
+      ps.setString(7, a.getConductor());
+      ps.setInt(8, a.getExpreso());
+      ps.setString(9, a.getEncargado());
+      ps.setString(10, a.getEstado());
+      ps.setString(11,a.getNombres()+" "+a.getApellidos()+" "+a.getDireccion());
+      ps.setInt(12, a.getId());
+      
+      rAfectados = ps.executeUpdate();
+      
+      con.Commit();
+      con.cerrar();
+      
+      return rAfectados;
+    } catch (SQLException ex) {
+      con.Rollback();
+      con.cerrar();
+      return -1;
+    }
   }
 
   public int totalAlumnos(String vBuscar) throws SQLException, ClassNotFoundException {
@@ -206,6 +215,7 @@ public class AlumnosDAO {
 
     rs.next();
     a = new Alumnos(rs.getInt("id"),
+            rs.getString("dispositivo"),
             rs.getTimestamp("fecha_ingreso"),
             rs.getString("institucion"),
             rs.getString("apellidos"),
