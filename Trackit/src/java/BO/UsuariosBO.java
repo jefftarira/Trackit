@@ -3,6 +3,7 @@ package BO;
 import DAO.UsuariosDAO;
 import GENERAL.Usuarios;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,22 +21,24 @@ public class UsuariosBO {
     return db.autenticar(cedula, clave);
   }
 
-  public String listaUsuarios(int pagina, int maxreg) throws SQLException, ClassNotFoundException, JSONException {
+  public String listaUsuarios(int pagina, int maxreg, String vBuscar) throws SQLException, ClassNotFoundException, JSONException {
     String json = "";
 
     ArrayList<Usuarios> aUsuarios = null;
     Usuarios u = null;
 
     int desde = 0;
-    int reg_pagina = 20;
+    int reg_pagina = maxreg;
     int pag_siguiente = 0;
     int pag_anterior = 0;
-    int totalregistros = 0;
     int totalpaginas = 0;
+    double paginasTot = 0;
 
-    totalregistros = db.totalUsuarios();
-    totalpaginas = Math.round(totalregistros / 20);
-    System.out.println("total Paginas " + totalpaginas);
+    int totalregistros = db.totalUsuarios(vBuscar);
+    paginasTot = ((double) totalregistros) / ((double) reg_pagina);
+    totalpaginas = Math.round(totalregistros / reg_pagina);
+    
+    if(paginasTot>totalpaginas) totalpaginas++;
 
     if (totalpaginas < 1) {
       totalpaginas = 1;
@@ -64,11 +67,12 @@ public class UsuariosBO {
       pag_anterior = pagina;
     }
 
-    aUsuarios = db.getUsuarios(desde, reg_pagina);
+    aUsuarios = db.getUsuarios(desde, reg_pagina, vBuscar);
 
     JSONObject obj = new JSONObject();
     obj.put("err", false);
     obj.put("conteo", totalregistros);
+    obj.put("reg_pagina", reg_pagina);
     obj.put("pag_actual", pagina + 1);
     obj.put("pag_siguiente", pag_siguiente);
     obj.put("pag_anterior", pag_anterior);
@@ -104,8 +108,8 @@ public class UsuariosBO {
       aC.add(jsonD);
     }
     obj.put("usuarios", aC);
-
     return obj.toString();
+
   }
 
   public String cargaUsuario(int id) throws ClassNotFoundException, SQLException, JSONException {
@@ -151,8 +155,8 @@ public class UsuariosBO {
       jsonD.put("nombres", u.getNombres());
       jsonD.put("apellidos", u.getApellidos());
       jsonD.put("cedula", u.getCedula());
-      jsonD.put("clave",u.getClave());
-      jsonD.put("claveRep",u.getClave());
+      jsonD.put("clave", u.getClave());
+      jsonD.put("claveRep", u.getClave());
       jsonD.put("registro", u.getFechaRegistro().toInstant());
       jsonD.put("estado", status);
       obj.put("usuario", jsonD);

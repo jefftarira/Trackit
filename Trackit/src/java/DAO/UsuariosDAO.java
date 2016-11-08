@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.StringTokenizer;
 import org.apache.commons.codec.digest.DigestUtils;
 
 public class UsuariosDAO {
@@ -28,12 +29,29 @@ public class UsuariosDAO {
     con = new Conexion();
   }
 
-  public int totalUsuarios() throws SQLException, ClassNotFoundException {
+  public int totalUsuarios(String vBuscar) throws SQLException, ClassNotFoundException {
+    vBuscar = vBuscar.toUpperCase().trim();
+    StringTokenizer tokens = new StringTokenizer(vBuscar);
+    String select;
+    select = " SELECT count(*) as cuantos "
+            + "  FROM usuarios u "
+            + " WHERE  ( u.buscar like concat('%','" + vBuscar + "','%') ";
+
+    if (tokens.countTokens() > 0) {
+      select += "   OR ( u.buscar like concat('%','" + tokens.nextToken() + "','%') ";
+      while (tokens.hasMoreTokens()) {
+        select += " and u.buscar like concat('%','" + tokens.nextToken() + "','%') ";
+      }
+      select += " ) ";
+    }
+
+    select += " ) ";
+
     con.conectar();
     int total = 0;
     PreparedStatement ps;
     ResultSet rs;
-    ps = con.prepareStatement(sTotal);
+    ps = con.prepareStatement(select);
     rs = ps.executeQuery();
     rs.next();
     total = rs.getInt("cuantos");
@@ -64,11 +82,29 @@ public class UsuariosDAO {
     return u;
   }
 
-  public ArrayList getUsuarios(int desde, int reg_pagina) throws SQLException, ClassNotFoundException {
+  public ArrayList getUsuarios(int desde, int reg_pagina, String vBuscar) throws SQLException, ClassNotFoundException {
+    vBuscar = vBuscar.toUpperCase().trim();
+    StringTokenizer tokens = new StringTokenizer(vBuscar);
+    String select = "";
+
+    select = " select id,tipo,cedula,apellidos,nombres,fecha_registro,estado "
+            + "  from usuarios "
+            + " where ( buscar like concat('%','" + vBuscar + "','%') ";
+
+    if (tokens.countTokens() > 0) {
+      select += "   OR ( buscar like concat('%','" + tokens.nextToken() + "','%') ";
+      while (tokens.hasMoreTokens()) {
+        select += " and buscar like concat('%','" + tokens.nextToken() + "','%') ";
+      }
+      select += " ) ";
+    }
+
+    select += " ) order by fecha_registro desc limit ?,?  ";
+
     ArrayList<Usuarios> aUsuarios = new ArrayList<Usuarios>();
     PreparedStatement ps;
     con.conectar();
-    ps = con.prepareStatement(sUsuarios);
+    ps = con.prepareStatement(select);
     ps.setInt(1, desde);
     ps.setInt(2, reg_pagina);
     ResultSet rs;

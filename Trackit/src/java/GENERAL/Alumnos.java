@@ -23,7 +23,6 @@ public class Alumnos {
   private String u_apellido;
 
   public Alumnos(int id, String nombres, String apellidos, String direccion, String u_cedula, String u_nombre, String u_apellido, Timestamp fecha_ingreso, String estado) {
-    System.out.println("No hay dispositivo");
     this.setId(id);
     this.setNombres(nombres);
     this.setApellidos(apellidos);
@@ -247,44 +246,26 @@ public class Alumnos {
     this.u_cedula = u_cedula;
   }
 
-  /**
-   * @return the u_nombre
-   */
   public String getU_nombre() {
     return u_nombre;
   }
 
-  /**
-   * @param u_nombre the u_nombre to set
-   */
   public void setU_nombre(String u_nombre) {
     this.u_nombre = u_nombre;
   }
 
-  /**
-   * @return the u_apellido
-   */
   public String getU_apellido() {
     return u_apellido;
   }
 
-  /**
-   * @param u_apellido the u_apellido to set
-   */
   public void setU_apellido(String u_apellido) {
     this.u_apellido = u_apellido;
   }
 
-  /**
-   * @return the dispositivo
-   */
   public String getDispositivo() {
     return dispositivo;
   }
 
-  /**
-   * @param dispositivo the dispositivo to set
-   */
   public void setDispositivo(String dispositivo) {
     this.dispositivo = dispositivo;
   }

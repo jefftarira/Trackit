@@ -25,27 +25,24 @@ public class AlumnosBO {
     Alumnos a = null;
 
     int desde = 0;
-    int reg_pagina = 20;
+    int reg_pagina = maxreg;
     int pag_siguiente = 0;
     int pag_anterior = 0;
     int totalregistros = 0;
     int totalpaginas = 0;
+    double paginasTot = 0;
 
     totalregistros = db.totalAlumnos(vBuscar);
-    totalpaginas = Math.round(totalregistros / 20);
-    System.out.println("total Paginas " + totalpaginas);
+    paginasTot = ((double) totalregistros) / ((double) reg_pagina);
+    totalpaginas = Math.round(totalregistros / reg_pagina);
+    
+    if(paginasTot>totalpaginas) totalpaginas++;
 
-    if (totalpaginas < 1) {
-      totalpaginas = 1;
-    }
+    if (totalpaginas < 1) {totalpaginas = 1;}
 
-    if (pagina < 1) {
-      pagina = 1;
-    }
+    if (pagina < 1) {pagina = 1;}
 
-    if (pagina > totalpaginas) {
-      pagina = totalpaginas;
-    }
+    if (pagina > totalpaginas) {pagina = totalpaginas;}
 
     pagina -= 1;
     desde = pagina * reg_pagina;
@@ -67,6 +64,7 @@ public class AlumnosBO {
     JSONObject obj = new JSONObject();
     obj.put("err", false);
     obj.put("conteo", totalregistros);
+    obj.put("reg_pagina", reg_pagina);
     obj.put("pag_actual", pagina + 1);
     obj.put("pag_siguiente", pag_siguiente);
     obj.put("pag_anterior", pag_anterior);
@@ -155,7 +153,6 @@ public class AlumnosBO {
     aUsuarios = uDao.listaUsuarios();
 
     if (id == 0) {
-      System.out.println("Nuevo");
 
       JSONObject obj = new JSONObject();
       obj.put("err", false);
@@ -190,14 +187,13 @@ public class AlumnosBO {
       return obj.toString();
 
     } else {
-      System.out.println("Edicion");
       a = db.getAlumno(id);
       JSONObject obj = new JSONObject();
       obj.put("err", false);
 
       JSONObject jsonD = new JSONObject();
       jsonD.put("id", a.getId());
-      jsonD.put("dispositivo", a.getDispositivo());
+      jsonD.put("dispositivo", (a.getDispositivo() == null) ? "" : a.getDispositivo());
       jsonD.put("fecha_ingreso", a.getFecha_ingreso().toInstant());
       jsonD.put("institucion", a.getInstitucion());
       jsonD.put("apellidos", a.getApellidos());
@@ -219,9 +215,7 @@ public class AlumnosBO {
       jsonD.put("u_cedula", a.getU_cedula().trim());
       jsonD.put("u_nombre", a.getU_nombre());
       jsonD.put("u_apellido", a.getU_apellido());
-      
-      System.out.println(jsonD);
-      
+
       obj.put("alumno", jsonD);
 
       JSONArray aC = new JSONArray();

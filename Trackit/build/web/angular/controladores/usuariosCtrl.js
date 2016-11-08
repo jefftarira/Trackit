@@ -10,19 +10,24 @@ app.controller('usuariosCtrl', ['$scope','Usuarios', function($scope,Usuarios){
 	$scope.usuarios = Usuarios;
 	$scope.usuarioSel = {};
 	$scope.usuarioEd = {};
+	$scope.registros = [{num : 20},{ num :50 }];
+	$scope.buscar= "";
 
-
-	$scope.moverA = function(pag) {
-		Usuarios.cargarPagina(pag).then( function(){
+	$scope.moverA = function(pag,reg) {
+		Usuarios.cargarPagina(pag,reg,$scope.buscar).then( function(){
 			$scope.usuarios = Usuarios;
 		});
+	};
+
+	$scope.buscarUsuario = function(){
+		$scope.moverA(1,$scope.usuarios.reg_pagina);
 	};
 
 	$scope.selUsuario = function(usuario){
 		angular.copy( usuario, $scope.usuarioSel);
 	};
 
-	$scope.moverA(1);
+	$scope.moverA(1,20);
 
 	/*Mostrar modal usuario en modo edicion y crear  */
 
@@ -36,19 +41,35 @@ app.controller('usuariosCtrl', ['$scope','Usuarios', function($scope,Usuarios){
 		});
 	};
 
-	// $scope.mostrarModal = function(usuario){
-	// 	$scope.usuarioEd = {};
-	// 	angular.copy(usuario,$scope.usuarioEd);
-	// 	console.log($scope.usuarioEd);
-	// 	/*Usuarios.cargarUsuario(usuarioSel).then(function(){
-	// 		$scope.usuarioEd = Usuarios.usuario;
-	// 	});*/
+	$scope.guardarUsuario = function(usuario,frmUsuario){
+		Usuarios.guardarUsuario(usuario,$scope.buscar).then( function(){
+			if(!Usuarios.err){
 
-	// 	$("#modal_cliente").modal();
-	// };
-
-	$scope.guardarUsuario = function(usuario){
-		Usuarios.guardarUsuario(usuario).then( function(){
+				$("#modal_usuario").modal('hide');
+				$scope.usuarioEd = {};
+				frmUsuario.autoValidateFormOptions.resetForm();
+				toastr.options = {
+					"closeButton": true,
+					"debug": false,
+					"newestOnTop": true,
+					"progressBar": true,
+					"positionClass": "toast-bottom-left",
+					"preventDuplicates": false,
+					"onclick": null,
+					"showDuration": "300",
+					"hideDuration": "1000",
+					"timeOut": "2000",
+					"extendedTimeOut": "1000",
+					"showEasing": "swing",
+					"hideEasing": "linear",
+					"showMethod": "fadeIn",
+					"hideMethod": "fadeOut"
+				};
+				toastr.success(Usuarios.mensaje, '');
+			}
+			else{
+				toastr.error(Usuarios.mensaje, '');
+			}
 
 		});
 	}

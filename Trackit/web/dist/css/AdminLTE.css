@@ -4494,6 +4494,9 @@ table.text-center th {
 .margin-r-5 {
   margin-right: 5px;
 }
+.margin-l-5 {
+  margin-left: 5px;
+}
 .inline {
   display: inline;
 }
@@ -5184,4 +5187,17 @@ table.text-center th {
 
 .padding-por {
  padding: 1%;
+}
+
+.stylish-input-group .input-group-addon{
+  background: white !important;
+}
+.stylish-input-group .form-control{
+  border-right:0;
+  box-shadow:0 0 0;
+  border-color:#ccc;
+}
+.stylish-input-group button{
+  border:0;
+  background:transparent;
 }

@@ -7,30 +7,29 @@ app.controller('alumnosCtrl', ['$scope',"Alumnos", function($scope,Alumnos){
 
 	$scope.activar('mAlumnos','','Alumnos','Lista');
 
-
-
 	$scope.alumnos = Alumnos;
 	$scope.alumnoSel = {};
 	$scope.alumnoEd = {};
 	$scope.usuarios = [];
 	$scope.historial = [];
+	$scope.registros = [{num : 20},{ num :50 }];
 	$scope.buscar= "";
 
-	$scope.moverA = function(pag) {
-		Alumnos.cargarPagina(pag,$scope.buscar).then( function(){
+	$scope.moverA = function(pag,reg) {
+		Alumnos.cargarPagina(pag,reg,$scope.buscar).then( function(){
 			$scope.alumnos = Alumnos;
 		});
 	};
 
 	$scope.buscarAlumno = function(){
-		$scope.moverA(1);
+		$scope.moverA(1,$scope.alumnos.reg_pagina);
 	};
 
 	$scope.selAlumno = function(alumno){
 		angular.copy( alumno, $scope.alumnoSel);
 	};
 
-	$scope.moverA(1);
+	$scope.moverA(1,20);
 
 	/*Mostrar modal usuario en modo edicion y crear*/
 
@@ -89,6 +88,5 @@ app.controller('alumnosCtrl', ['$scope',"Alumnos", function($scope,Alumnos){
 			}
 		});
 	}
-
 
 }]);

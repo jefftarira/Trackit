@@ -40,12 +40,12 @@ public class HistorialBO {
         jsonD.put("estiloicono", "fa-home");
         jsonD.put("estilocolor", "bg-red");
       }
-      
+
       if (h.getId_estado() == 2) {
         jsonD.put("estiloicono", "fa-bus");
         jsonD.put("estilocolor", "bg-blue");
       }
-      
+
       if (h.getId_estado() == 3) {
         jsonD.put("estiloicono", "fa-graduation-cap");
         jsonD.put("estilocolor", "bg-green");
@@ -56,6 +56,22 @@ public class HistorialBO {
     obj.put("historial", aC);
 
     System.out.println(obj);
+    return obj.toString().trim();
+  }
+
+  public String registrarUbicacion(String dispositivo, String lugar) throws ClassNotFoundException, SQLException, JSONException {
+
+    int n = db.setHistorial(dispositivo, lugar);
+
+    JSONObject obj = new JSONObject();
+    if (n < 0) {
+      obj.put("err", true);
+      obj.put("mensaje", "Error al guardar");
+    } else {
+      obj.put("err", false);
+      obj.put("mensaje", "Se guardo correctamente la ubicacion");
+    }
+
     return obj.toString().trim();
   }
 }

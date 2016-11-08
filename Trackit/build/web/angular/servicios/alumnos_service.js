@@ -12,18 +12,18 @@ app.factory('Alumnos', ['$http', '$q', function($http, $q){
 		'alumno'		       : [],
 		'usuarios'				 : [],
 		'historial'				 : [],
+		'reg_pagina'			 : 20,
 		'pag_actual'       : 1,
 		'pag_siguiente'    : 1,
 		'pag_anterior'     : 1,
 		'total_paginas'    : 1,
 		'paginas'          : [],
 
-		cargarPagina : function(pag,vBuscar){
-			console.log(vBuscar);
+		cargarPagina : function(pag,reg,vBuscar){
 			self.cargandoLista = true;
 			param = {
 				'pagina' : pag,
-				'max_reg' : 20,
+				'max_reg' : reg,
 				'buscar' : vBuscar
 			}
 			var d = $q.defer();
@@ -33,6 +33,7 @@ app.factory('Alumnos', ['$http', '$q', function($http, $q){
 				self.err            = data.err;
 				self.conteo         = data.conteo;
 				self.alumnos        = data.alumnos;
+				self.reg_pagina     = data.reg_pagina;
 				self.pag_actual     = data.pag_actual;
 				self.pag_siguiente  = data.pag_siguiente;
 				self.pag_anterior   = data.pag_anterior;
@@ -94,7 +95,7 @@ app.factory('Alumnos', ['$http', '$q', function($http, $q){
 				self.err = data.err;
 				self.mensaje = data.mensaje;
 				if(!data.err){
-					self.cargarPagina(self.pag_actual,vBuscar);
+					self.cargarPagina(self.pag_actual,self.reg_pagina,vBuscar);
 				}
 				d.resolve();
 			});

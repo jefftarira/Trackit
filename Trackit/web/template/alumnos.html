@@ -1,59 +1,63 @@
 <div class="row">
 	<div class="box box-widget">
 		<div class="box-body">
-
-
-			<div class="col-md-2 margin-b-5">
-				<h3 class="no-margin">
+			<div class="col-md-2 margin-b-4">
+				<h3 class="no-margin animated fadeInDown fast">
 					<span ng-bind="titulo"></span>
 					<small ng-bind="subtitulo"></small>
 				</h3>
 			</div>
 
-			<div class="col-md-4 margin-b-5">
-				<div class="btn-group">
-					<div class="input-group" style="width: 100%;">
-						<input type="text" name="table_search" class="form-control pull-right" placeholder="Buscar por Alumno o direccion" ng-model="buscar" ng-change="buscarAlumno()">
-						<div class="input-group-btn">
-							<button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+			<div class="col-md-10 margin-b-6">
+				<div class="pull-right">
+					<div class="btn-group">
+						<div class="input-group input-group-sm" style="width: 300px;">
+							<input type="text" class="form-control pull-right" placeholder="Buscar por Alumno o direccion" ng-model="buscar" ng-change="buscarAlumno()">
+							<div class="input-group-btn">
+								<button class="btn btn-default"><i class="fa fa-search"></i></button>
+							</div>
 						</div>
 					</div>
-				</div>
-			</div>
-
-			<div class="col-md-3 margin-b-5">
-				<div class="">
 					<div class="btn-group">
-						<button type="button" class="btn btn-default" ng-click="editar({})">Agregar alumno</button>
-					</div>
-					<div class="btn-group">
-						<button type="button" class="btn btn-default" ng-click="moverA(alumnos.pag_actual)">
-							<i class="fa fa-circle-o-notch" ng-class="{'fa-spin': alumnos.cargandoLista }"></i>
-						</button>
+						<button type="button" class="btn btn-success btn-sm" ng-click="editar({})"><i class="fa fa-plus margin-r-5"></i>Agregar</button>
 					</div>
 				</div>
-			</div>
-
-			<div class="col-md-3 no-margin">
-				<ul class="pagination pagination-sm no-margin">
-					<li><a ng-click="moverA(1)">«</a></li>
-					<li ng-repeat="pagina in alumnos.paginas" ng-class="{'active' : alumnos.pag_actual===pagina.num } ">
-						<a ng-click="moverA(pagina.num)">
-							{{pagina.num}}
-						</a>
-					</li>
-					<li><a ng-click="moverA(alumnos.total_paginas)">»</a></li>
-				</ul>
 			</div>
 		</div>
 	</div>
 </div>
 
-<!-- <ol class="breadcrumb animated fadeIn fast">
-	<li><a href=""><i class="fa fa-odnoklassniki"></i> Alumnos</a></li>
-</ol> -->
+<div class="row margin-left margin-right">
+	<div class="col-md-6">
+		<div class="btn-group margin-r-5">
+			<p class="text-muted no-margin">Mostrando {{alumnos.reg_pagina}} de {{alumnos.conteo}}</p>
+		</div>
+		<div class="btn-group input-group-sm">
+			<select class="form-control" style="width: 80px;" ng-model="alumnos.reg_pagina" ng-options="registro.num as registro.num for registro in registros" ng-change="moverA(alumnos.pag_actual,alumnos.reg_pagina)">
+			</select>
+		</div>
+	</div>
+	<div class="col-md-6">
+		<div class="pull-right">
+			<div class="btn-group margin-r-5">
+				<p class="text-muted no-margin">Pagina {{alumnos.pag_actual}} de {{alumnos.total_paginas}}</p>
+			</div>
 
-<div class="row padding-por animated fadeIn fast">
+			<div class="btn-group">
+				<button type="button" class="btn btn-default btn-sm" ng-click="moverA(alumnos.pag_anterior,alumnos.reg_pagina)"><i class="fa fa-arrow-left margin-r-5"></i>Anterior</button>
+			</div>
+			<div class="btn-group">
+				<button type="button" class="btn btn-default btn-sm" ng-click="moverA(alumnos.pag_siguiente,alumnos.reg_pagina)">
+					Siguiente
+					<i class="fa fa-arrow-right margin-l-5">
+					</i>
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="row padding-por">
 
 	<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" ng-repeat="alumno in alumnos.alumnos">
 		<div class="box box-widget">
@@ -86,109 +90,6 @@
 			</div>
 		</div>
 	</div>
-
-
-<!-- 	<div class="col-xs-12">
-	<div class="box">
-
-		<div class="box-header">
-			<i class="fa fa-circle-o-notch fa-spin" ng-hide="alumnos.cargandoLista == false"></i>
-			<div class="overlay" ng-hide="alumnos.cargandoLista == false">
-				<i class="fa fa-refresh fa-spin"></i>
-			</div>
-		</div>
-
-		<div class="box-tittle">
-			Buscar
-		</div>
-		<div class="box-tools">
-
-		</div>
-
-		<div class="box-body">
-			<div class="row margin">
-				<div class="col-md-7 no-padding">
-					<div class="btn-group">
-					</div>
-				</div>
-				<div class="col-md-5 no-padding pull-right">
-					<ul class="pagination pagination-sm no-margin pull-right">
-						<li><a ng-click="moverA(1)">«</a></li>
-						<li ng-repeat="pagina in alumnos.paginas" ng-class="{'active' : alumnos.pag_actual===pagina.num } ">
-							<a ng-click="moverA(pagina.num)">
-								{{pagina.num}}
-							</a>
-						</li>
-						<li><a ng-click="moverA(alumnos.total_paginas)">»</a></li>
-					</ul>
-				</div>
-			</div>
-			<table class="table table-hover table-condensed">
-				<thead>
-					<tr>
-						<th></th>
-						<th>ID</th>
-						<th>Alumno</th>
-						<th>Direccion</th>
-						<th>Cuenta</th>
-						<th>Fecha Ingreso</th>
-						<th>Estado</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr ng-repeat="alumno in alumnos.alumnos">
-						<td>
-							<div class="btn-group">
-								<a type="button" class="btn btn-link " data-toggle="dropdown">
-									<i class="glyphicon glyphicon-option-vertical"></i>
-								</a>
-								<ul class="dropdown-menu" role="menu">
-									<li><a href="" ng-click="editar(alumno)" ><i class="fa fa-pencil"></i>Editar</a></li>
-									<li><a href="" ng-click="verHistorial(alumno)" ><i class="fa fa-map-marker"></i>Ubicaciones</a></li>
-								</ul>
-							</div>
-						</td>
-						<td>{{ alumno.id }}</td>
-						<td>
-							<p  class="no-margin"> {{ alumno.nombres | capitalize }}
-								<p>{{ alumno.apellidos | capitalize }}</p>
-							</p>
-						</td>
-						<td> {{ alumno.direccion | lowercase}}</td>
-						<td>
-							<p class="no-margin">{{alumno.u_nombre | capitalize}} {{alumno.u_apellido | capitalize}}</p>
-							<small class="text-muted">{{ alumno.cedula }}</small>
-						</td>
-						<td>
-							<p class="no-margin">{{ alumno.registro | date:"MMM d, yyyy" }}</p>
-							<small class="text-muted"><i class="fa fa-clock-o"></i> {{alumno.registro | date: "h:mm a"}}</small>
-						</td>
-						<td>
-							<span class="label " ng-class="{'bg-green' : alumno.estado ==='ACTIVO' , 'bg-red' : alumno.estado === 'INACTIVO' }">{{alumno.estado}}
-							</span>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-
-		<div class="box-footer clearfix">
-			<ul class="pagination pagination-sm no-margin pull-right">
-				<li><a ng-click="moverA(1)">«</a></li>
-
-				<li ng-repeat="pagina in alumnos.paginas" ng-class="{'active' : alumnos.pag_actual===pagina.num } ">
-					<a ng-click="moverA(pagina.num)">
-						{{pagina.num}}
-					</a>
-				</li>
-
-				<li><a ng-click="moverA(alumnos.total_paginas)">»</a></li>
-			</ul>
-		</div>
-
-	</div>
-
-</div> -->
 </div>
 
 
