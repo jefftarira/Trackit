@@ -41,8 +41,9 @@ app.controller('usuariosCtrl', ['$scope','Usuarios', function($scope,Usuarios){
 		});
 	};
 
-	$scope.guardarUsuario = function(usuario,frmUsuario){
-		Usuarios.guardarUsuario(usuario,$scope.buscar).then( function(){
+	$scope.guardar = function(usuario,frmUsuario){
+
+		Usuarios.guardar(usuario,$scope.buscar).then( function(){
 			if(!Usuarios.err){
 
 				$("#modal_usuario").modal('hide');

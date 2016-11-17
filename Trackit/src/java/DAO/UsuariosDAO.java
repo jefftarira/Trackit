@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.apache.commons.codec.digest.DigestUtils;
 
 public class UsuariosDAO {
@@ -20,13 +22,84 @@ public class UsuariosDAO {
           + "  where id=? ";
   private String sCuentas = "select id,tipo,cedula,apellidos,nombres,fecha_registro,estado from usuarios where estado='A'";
   private String selectbyUsername = "select username from usuarios where username=?";
-  private String insert = "INSERT INTO usuarios (idUsuarios,username,email,clave,nombre,fecha_registro,estado) "
-          + " VALUES (null,?,?,?,?,now(),'A')";
+  private String iUsuario = " insert into usuarios (tipo,cedula,clave,apellidos,nombres,fecha_registro,buscar) "
+          + " values(?,?,?,?,?,sysdate(),?) ";
+  private String uUsuario = " update usuarios set tipo=? , cedula = ? , clave = ? , apellidos = ? , nombres = ? , estado = ? , buscar = ? "
+          + " where id = ? limit 1 ";
+  private String uUsuarioC = " update usuarios set tipo=? , cedula = ? , apellidos = ? , nombres = ? , estado = ? , buscar = ? "
+          + " where id = ? limit 1 ";
   private String selectAutenticar = "select id,cedula,tipo,apellidos,nombres,fecha_registro,estado "
           + "from usuarios where cedula=? and clave=md5(?) and estado='A' ";
 
   public UsuariosDAO() throws ClassNotFoundException, SQLException {
     con = new Conexion();
+  }
+
+  public int ingresarUsuario(Usuarios u) throws ClassNotFoundException, SQLException {
+    int rAfectados = 0;
+
+    try {
+      con.conectar();
+      con.autoCommit(false);
+      PreparedStatement ps;
+      ps = con.prepareStatement(iUsuario);
+      ps.setString(1, u.getTipo());
+      ps.setString(2, u.getCedula());
+      ps.setString(3, DigestUtils.md5Hex(u.getClave()));
+      ps.setString(4, u.getApellidos());
+      ps.setString(5, u.getNombres());
+      ps.setString(6, u.getCedula() + " " + u.getNombres() + " " + u.getApellidos());
+      rAfectados = ps.executeUpdate();
+      con.Commit();
+      con.cerrar();
+      return rAfectados;
+
+    } catch (SQLException ex) {
+      con.Rollback();
+      con.cerrar();
+      Logger.getLogger(UsuariosDAO.class.getName()).log(Level.SEVERE, null, ex);
+      return -1;
+    }
+  }
+
+  public int actualizarUsuario(Usuarios u) throws ClassNotFoundException, SQLException {
+    int rAfectados = 0;
+    try {
+      con.conectar();
+      con.autoCommit(false);
+      PreparedStatement ps;
+
+      if (u.getClave().trim().equals("********")) {
+        ps = con.prepareStatement(uUsuarioC);
+        ps.setString(1, u.getTipo());
+        ps.setString(2, u.getCedula());
+        ps.setString(3, u.getApellidos());
+        ps.setString(4, u.getNombres());
+        ps.setString(5, u.getEstado());
+        ps.setString(6, u.getCedula() + " " + u.getNombres() + " " + u.getApellidos());
+        ps.setInt(7, u.getId());
+      } else {
+        ps = con.prepareStatement(uUsuario);
+        ps.setString(1, u.getTipo());
+        ps.setString(2, u.getCedula());
+        ps.setString(3, DigestUtils.md5Hex(u.getClave()));
+        ps.setString(4, u.getApellidos());
+        ps.setString(5, u.getNombres());
+        ps.setString(6, u.getEstado());
+        ps.setString(7, u.getCedula() + " " + u.getNombres() + " " + u.getApellidos());
+        ps.setInt(8, u.getId());
+      }
+      rAfectados = ps.executeUpdate();
+      con.Commit();
+      con.cerrar();
+
+      return rAfectados;
+    } catch (SQLException ex) {
+      con.Rollback();
+      con.cerrar();
+      Logger.getLogger(UsuariosDAO.class.getName()).log(Level.SEVERE, null, ex);
+      return -1;
+    }
   }
 
   public int totalUsuarios(String vBuscar) throws SQLException, ClassNotFoundException {

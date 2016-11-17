@@ -37,8 +37,10 @@ public class UsuariosBO {
     int totalregistros = db.totalUsuarios(vBuscar);
     paginasTot = ((double) totalregistros) / ((double) reg_pagina);
     totalpaginas = Math.round(totalregistros / reg_pagina);
-    
-    if(paginasTot>totalpaginas) totalpaginas++;
+
+    if (paginasTot > totalpaginas) {
+      totalpaginas++;
+    }
 
     if (totalpaginas < 1) {
       totalpaginas = 1;
@@ -162,6 +164,47 @@ public class UsuariosBO {
       obj.put("usuario", jsonD);
       return obj.toString();
     }
+  }
+
+  public String guardarUsuario(JSONObject jObj) throws ClassNotFoundException, SQLException, JSONException {
+    int n = 0;
+    JSONObject obj = new JSONObject();
+    String estado = "";
+    if (jObj.getBoolean("estado")) {
+      estado = "A";
+    } else {
+      estado = "I";
+    }
+
+    if (jObj.getString("clave").trim().equals(jObj.getString("claveRep").trim())) {
+      Usuarios u = null;
+      u = new Usuarios(Integer.parseInt(jObj.getString("id")),
+              jObj.getString("tipo").toUpperCase().trim(),
+              jObj.getString("cedula").toUpperCase().trim(),
+              jObj.getString("apellidos").toUpperCase().trim(),
+              jObj.getString("nombres").toUpperCase().trim(),
+              jObj.getString("clave").trim(),
+              estado);
+
+      if (u.getId() != 0) {
+        n = db.actualizarUsuario(u);
+      } else {
+        n = db.ingresarUsuario(u);
+      }
+
+      if (n < 0) {
+        obj.put("err", true);
+        obj.put("mensaje", "Error al guardar");
+      } else {
+        obj.put("err", false);
+        obj.put("mensaje", "Se guardo correctamente");
+      }
+    } else {
+      obj.put("err", true);
+      obj.put("mensaje", "Las claves no coinciden");
+    }
+
+    return obj.toString();
   }
 
 //    public void encriptar() throws SQLException {

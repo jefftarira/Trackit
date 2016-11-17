@@ -34,6 +34,16 @@ public class Usuarios {
     this.setFechaRegistro(fechaRegistro);
     this.setEstado(estado);
   }
+  
+  public Usuarios(int id, String tipo, String cedula, String apellidos, String nombres, String clave, String estado) {
+    this.setId(id);
+    this.setTipo(tipo);
+    this.setCedula(cedula);
+    this.setApellidos(apellidos);
+    this.setNombres(nombres);
+    this.setClave(clave);
+    this.setEstado(estado);
+  }
 
   public Usuarios(String cedula, String clave) {
     this.setCedula(cedula);

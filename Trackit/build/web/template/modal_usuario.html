@@ -9,7 +9,7 @@
 				<h4 class="modal-title" ng-hide="usuarioEd.id==0">Usuario ID: {{usuarioEd.id}} </h4>
 			</div>
 
-			<form name="frmUsuario" ng-submit="guardar(alumnoEd)" novalidate="novalidate">
+			<form name="frmUsuario" ng-submit="guardar(usuarioEd,frmUsuario)" novalidate="novalidate">
 				<div class="modal-body">
 
 					<!-- <div class="alert alert-info" ng-show="clientes.cargandoCliente">
