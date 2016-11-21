@@ -98,6 +98,7 @@ public class AlumnosBO {
         status = "INACTIVO";
       }
       jsonD.put("estado", status);
+      jsonD.put("ubicacion", (a.getUbicacion() == null) ? "" : a.getUbicacion());      
       aC.add(jsonD);
     }
     obj.put("alumnos", aC);

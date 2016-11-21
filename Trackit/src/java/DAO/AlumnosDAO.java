@@ -142,10 +142,13 @@ public class AlumnosDAO {
     String select = "";
 
     select = " select a.id,a.nombres,a.apellidos,a.direccion,u.cedula, "
-            + "	    u.nombres u_nombre,u.apellidos u_apellido,a.fecha_ingreso,a.estado "
-            + "  from alumnos a,usuarios u "
+            + " u.nombres u_nombre,u.apellidos u_apellido,a.fecha_ingreso,a.estado, "
+            + " (select e.descripcion from historial h,estados e "
+            + " where h.id_estado = e.id and a.id = h.id_alumno and h.estado='A' "
+            + " order by h.fecha desc " 
+            + " limit 1) ubicacion "
+            + " from alumnos a,usuarios u "
             + " where a.id_usuario=u.id ";
-
     select += " AND ( a.buscar like concat('%','" + vBuscar + "','%') ";
 
     if (tokens.countTokens() > 0) {
@@ -157,7 +160,7 @@ public class AlumnosDAO {
     }
 
     select += " ) order by a.fecha_ingreso desc limit ?,?  ";
-
+    System.out.println(select);
     ArrayList<Alumnos> aAlumnos = new ArrayList<Alumnos>();
     PreparedStatement ps;
     con.conectar();
@@ -176,7 +179,8 @@ public class AlumnosDAO {
               rs.getString("u_nombre"),
               rs.getString("u_apellido"),
               rs.getTimestamp("fecha_ingreso"),
-              rs.getString("estado"));
+              rs.getString("estado"),
+              rs.getString("ubicacion"));
       aAlumnos.add(a);
     }
     rs.close();

@@ -71,6 +71,7 @@
 				</h5>
 				<p class="no-margin"><i class="fa fa-map-marker"></i><span> {{ alumno.direccion | mensajecorto | lowercase}}</span></p>
 				<address class="no-margin">
+					<i class="fa" ng-class="{'fa-bus' : alumno.ubicacion === 'EXPRESO' , 'fa-home' : alumno.ubicacion === 'CASA' , 'fa-graduation-cap' : alumno.ubicacion === 'ESCUELA'}"></i> {{ alumno.ubicacion | capitalize  }}
 					<p class="text-muted no-margin">{{alumno.u_nombre | capitalize}} {{alumno.u_apellido | capitalize}}</p>
 					<!-- <small>{{ alumno.cedula }}</small> -->
 					<i class="fa fa-calendar-o"></i> {{ alumno.registro | date:"MMM d, yyyy" }}
