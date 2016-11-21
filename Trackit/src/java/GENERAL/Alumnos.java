@@ -22,7 +22,9 @@ public class Alumnos {
   private String u_nombre;
   private String u_apellido;
 
-  public Alumnos(int id, String nombres, String apellidos, String direccion, String u_cedula, String u_nombre, String u_apellido, Timestamp fecha_ingreso, String estado) {
+  public Alumnos(int id, String nombres, String apellidos, String direccion, 
+          String u_cedula, String u_nombre, String u_apellido, 
+          Timestamp fecha_ingreso, String estado) {
     this.setId(id);
     this.setNombres(nombres);
     this.setApellidos(apellidos);
@@ -34,7 +36,11 @@ public class Alumnos {
     this.setEstado(estado);
   }
 
-  public Alumnos(int id, String dispositivo, Timestamp fecha_ingreso, String institucion, String apellidos, String nombres, String direccion, String conductor, int expreso, String encargado, String estado, int id_usuario, String u_cedula, String u_nombre, String u_apellido) {
+  public Alumnos(int id, String dispositivo, Timestamp fecha_ingreso, 
+          String institucion, String apellidos, String nombres, 
+          String direccion, String conductor, int expreso, String encargado, 
+          String estado, int id_usuario, String u_cedula, String u_nombre, 
+          String u_apellido) {
     this.setId(id);
     this.setDispositivo(dispositivo);
     this.setFecha_ingreso(fecha_ingreso);
@@ -53,7 +59,9 @@ public class Alumnos {
     this.setU_apellido(u_apellido);
   }
 
-  public Alumnos(int id,String dispositivo, String institucion, String apellidos, String nombres, String direccion, String conductor, int expreso, String encargado, String estado, int id_usuario) {
+  public Alumnos(int id,String dispositivo, String institucion, 
+          String apellidos, String nombres, String direccion, String conductor, 
+          int expreso, String encargado, String estado, int id_usuario) {
     this.setId(id);
     this.setDispositivo(dispositivo);
     this.setInstitucion(institucion);
