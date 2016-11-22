@@ -26,6 +26,8 @@ public class AlumnosDAO {
           + "u.nombres u_nombre,u.apellidos u_apellido,a.fecha_ingreso,a.institucion, "
           + " a.nombres,a.apellidos,a.direccion,a.conductor,a.expreso,a.encargado,a.estado "
           + " from alumnos a,usuarios u where a.id_usuario=u.id and a.id = ?";
+  
+  private String sAlumnosExpreso = " select id,nombres,apellidos,direccion from alumnos where expreso=? and estado = 'A' ";
 
   private String uAlumno = " UPDATE alumnos SET dispositivo=?, id_usuario = ?, " 
           + " institucion = ?, apellidos = ?, nombres = ?, direccion = ?, " 
@@ -209,6 +211,27 @@ public class AlumnosDAO {
               rs.getString("u_apellido"),
               rs.getTimestamp("fecha_ingreso"),
               rs.getString("estado"));
+      aAlumnos.add(a);
+    }
+    rs.close();
+    con.cerrar();
+    return aAlumnos;
+  }
+  public ArrayList getAlumnosExpreso(int expreso) throws SQLException, ClassNotFoundException {
+
+    ArrayList<Alumnos> aAlumnos = new ArrayList<Alumnos>();
+    PreparedStatement ps;
+    con.conectar();
+    ps = con.prepareStatement(sAlumnosExpreso);
+    ps.setInt(1, expreso);
+    ResultSet rs;
+    rs = ps.executeQuery();
+    Alumnos a;
+    while (rs.next()) {
+      a = new Alumnos(rs.getInt("id"),
+              rs.getString("nombres"),
+              rs.getString("apellidos"),
+              rs.getString("direccion"));
       aAlumnos.add(a);
     }
     rs.close();

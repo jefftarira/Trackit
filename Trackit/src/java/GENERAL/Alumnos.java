@@ -22,6 +22,13 @@ public class Alumnos {
     private String u_cedula;
     private String u_nombre;
     private String u_apellido;
+    
+    public Alumnos(int id, String nombres, String apellidos, String direccion) {
+        this.setId(id);
+        this.setNombres(nombres);
+        this.setApellidos(apellidos);
+        this.setDireccion(direccion);
+    }
 
     public Alumnos(int id, String nombres, String apellidos, String direccion,
             String u_cedula, String u_nombre, String u_apellido,
