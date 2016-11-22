@@ -8,7 +8,7 @@ import java.sql.SQLException;
 public class Conexion {
     
     private String server="localhost";
-    private String dbname="trackit";
+    private String dbname="alumru";
     private String port="3306";
     private String user="user";
     private String passw="123456";    

@@ -20,6 +20,7 @@ public class AlumnosDAO {
           + " from alumnos a,usuarios u "
           + " where u.id=? "
           + " and a.id_usuario=u.id "
+          + " and a.estado='A' "
           + " order by a.fecha_ingreso desc ";
   private String sAlumno = "select a.id,a.dispositivo,u.id id_usuario,u.cedula u_cedula, "
           + "u.nombres u_nombre,u.apellidos u_apellido,a.fecha_ingreso,a.institucion, "
