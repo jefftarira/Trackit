@@ -47,7 +47,11 @@
 			</div>
 
 			<div class="btn-group">
-				<button type="button" class="btn btn-default btn-sm" ng-click="moverA(alumnos.pag_anterior,alumnos.reg_pagina)"><i class="fa fa-arrow-left margin-r-5"></i>Anterior</button>
+				<button type="button" class="btn btn-default btn-sm" ng-click="moverA(alumnos.pag_anterior,alumnos.reg_pagina)">
+					<i class="fa fa-arrow-left margin-r-5">
+					</i>
+					Anterior
+				</button>
 			</div>
 			<div class="btn-group">
 				<button type="button" class="btn btn-default btn-sm" ng-click="moverA(alumnos.pag_siguiente,alumnos.reg_pagina)">
@@ -65,7 +69,6 @@
 	<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" ng-repeat="alumno in alumnos.alumnos">
 		<div class="box box-widget">
 			<div class="box-body box-hover" ng-click="editar(alumno)">
-
 				<h5 class="no-margin">
 					<strong>{{ alumno.nombres | capitalize }} {{ alumno.apellidos | capitalize }}</strong>
 				</h5>

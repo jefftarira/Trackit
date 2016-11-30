@@ -29,7 +29,6 @@ app.factory('Alumnos', ['$http', '$q', function($http, $q){
 			var d = $q.defer();
 			$http.post('service_jsp/listaAlumnos.jsp',param)
 			.success(function( data ){
-				console.log(data);
 				self.cargandoLista  = false;
 				self.err            = data.err;
 				self.conteo         = data.conteo;
