@@ -23,11 +23,12 @@ public class Alumnos {
     private String u_nombre;
     private String u_apellido;
     
-    public Alumnos(int id, String nombres, String apellidos, String direccion) {
+    public Alumnos(int id, String nombres, String apellidos, String direccion, String dispositivo) {
         this.setId(id);
         this.setNombres(nombres);
         this.setApellidos(apellidos);
         this.setDireccion(direccion);
+        this.setDispositivo(dispositivo);
     }
 
     public Alumnos(int id, String nombres, String apellidos, String direccion,

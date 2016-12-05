@@ -162,10 +162,13 @@ public class AlumnosBO {
       jsonD.put("id", a.getId());
       jsonD.put("nombres", a.getNombres());
       jsonD.put("apellidos", a.getApellidos());
-      jsonD.put("direccion", a.getDireccion());    
+      jsonD.put("direccion", a.getDireccion());
+      jsonD.put("dispositivo",a.getDispositivo());
       aC.add(jsonD);
     }
     obj.put("alumnos", aC);
+    
+    System.out.println(obj);
 
     return obj.toString().trim();
   }
