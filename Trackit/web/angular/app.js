@@ -25,11 +25,6 @@ app.controller('mainCtrl', ['$scope','Configuracion',function($scope,Configuraci
   $scope.titulo    = "";
   $scope.subtitulo ="";
 
-  $scope.usuario = {
-    nombre : "Jefferson Tarira",
-    fecha_registro : "2 Agosto 2016"
-  };
-
   $scope.cerrarSesion = function(){
     Configuracion.cerrarSesion();
   }

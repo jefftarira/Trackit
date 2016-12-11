@@ -13,6 +13,10 @@ app.controller('dashboardCtrl', ['$scope','Alumnos', function($scope,Alumnos){
 	$scope.usuarios = [];
 	$scope.historial = [];
 	$scope.buscar= "";
+        
+        setInterval(function () {
+            $scope.cargar();
+        }, 5000);
 
 	$scope.cargar = function() {
 		Alumnos.cargarLista().then( function(){
