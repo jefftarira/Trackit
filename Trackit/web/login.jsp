@@ -75,8 +75,8 @@
             </div>
           </div>
         </form>
-        <br>
-        <a href="#">Olvide mi contraseña</a><br>
+
+
 
       </div>
     </div>

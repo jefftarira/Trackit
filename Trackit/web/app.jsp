@@ -63,7 +63,7 @@ if (u == null) {
         <span class="logo-mini"><b><i class="fa  fa-bullseye"></i></b></span>
         <span class="logo-lg">
           <i class="fa fa-bullseye"></i>
-          <b ng-bind="config.aplicativo">
+          <b ng-bind="config.aplicativo | capitalize">
           </b>
           <span ng-bind="config.iniciales"></span>
         </span>
